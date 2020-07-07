@@ -34,7 +34,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(scattering scattering.cpp ${sources} ${headers})
+add_executable(scattering scattering.cc ${sources} ${headers})
 target_link_libraries(scattering ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
