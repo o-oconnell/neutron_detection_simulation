@@ -1,7 +1,7 @@
 #include "GammaActionInitialization.hh"
 
 GammaActionInitialization::GammaActionInitialization() :
-	G4VUserInitialization() {}
+	G4VUserActionInitialization() {}
 
 void GammaActionInitialization::BuildForMaster const
 {

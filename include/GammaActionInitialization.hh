@@ -9,9 +9,9 @@ public:
 	GammaActionInitialization();
 
 	// must be overriden, first defined in class G4VUserActionInitialization
-	virtual void BuildForMaster const;
+	virtual void BuildForMaster() const;
 	virtual void Build() const;
-}
+};
 
 
 
