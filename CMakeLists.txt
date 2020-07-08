@@ -65,7 +65,7 @@ target_link_libraries(scattering ${Geant4_LIBRARIES})
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-#add_custom_target(SCATTERING DEPENDS scattering)
+add_custom_target(SCATTERING DEPENDS scattering)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX

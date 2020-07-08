@@ -13,8 +13,7 @@ class GammaDetectorConstruction : public G4VUserDetectorConstruction {
 public:
 	GammaDetectorConstruction();
 	
-	virtual G4PhysicalVolume *Construct();
-
+	virtual G4VPhysicalVolume *Construct();
 };
 
 #endif

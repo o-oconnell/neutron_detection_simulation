@@ -1,6 +1,8 @@
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 
+#include "GammaActionInitialization.hh"
+#include "GammaDetectorConstruction.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VUserPhysicsList.hh"
 #include "G4VUserActionInitialization.hh"
@@ -14,7 +16,7 @@ int main()
   runManager->SetUserInitialization(new GammaDetectorConstruction);
 
   // physics list
-  G4VModularPhysicsList physics_list =
+  G4VModularPhysicsList *physics_list =
 	  new QBBC;
   physics_list->SetVerboseLevel(1);
   runManager->SetUserInitialization(physics_list);

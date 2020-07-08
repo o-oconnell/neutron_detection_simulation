@@ -3,7 +3,7 @@
 GammaActionInitialization::GammaActionInitialization() :
 	G4VUserActionInitialization() {}
 
-void GammaActionInitialization::BuildForMaster const
+void GammaActionInitialization::BuildForMaster() const
 {
 
 
