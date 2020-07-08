@@ -3,6 +3,7 @@
 
 #include "NeutronActionInitialization.hh"
 #include "NeutronDetectorConstruction.hh"
+#include "NeutronPrimaryGeneratorAction.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VUserPhysicsList.hh"
 #include "G4VUserActionInitialization.hh"
