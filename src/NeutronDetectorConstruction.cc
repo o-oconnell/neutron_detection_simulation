@@ -1,4 +1,4 @@
-#include "GammaDetectorConstruction.hh"
+#include "NeutronDetectorConstruction.hh"
 
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
@@ -7,10 +7,10 @@
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
 
-GammaDetectorConstruction::GammaDetectorConstruction() :
+NeutronDetectorConstruction::NeutronDetectorConstruction() :
 	G4VUserDetectorConstruction() {}
 	
-G4VPhysicalVolume *GammaDetectorConstruction::Construct()
+G4VPhysicalVolume *NeutronDetectorConstruction::Construct()
 {
 	
 	G4NistManager *nist_mgr = G4NistManager::Instance();

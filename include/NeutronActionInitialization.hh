@@ -1,12 +1,12 @@
-#ifndef GAMMA_ACTION_INITIALIZATION_H
-#define GAMMA_ACTION_INITIALIZATION_H
+#ifndef NEUTRON_ACTION_INITIALIZATION_H
+#define NEUTRON_ACTION_INITIALIZATION_H
 
 #include "G4VUserActionInitialization.hh"
 
-class GammaActionInitialization : public G4VUserActionInitialization
+class NeutronActionInitialization : public G4VUserActionInitialization
 {
 public:
-	GammaActionInitialization();
+	NeutronActionInitialization();
 
 	// must be overriden, first defined in class G4VUserActionInitialization
 	virtual void BuildForMaster() const;

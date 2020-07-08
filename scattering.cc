@@ -1,8 +1,8 @@
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 
-#include "GammaActionInitialization.hh"
-#include "GammaDetectorConstruction.hh"
+#include "NeutronActionInitialization.hh"
+#include "NeutronDetectorConstruction.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VUserPhysicsList.hh"
 #include "G4VUserActionInitialization.hh"
@@ -13,7 +13,7 @@ int main()
   G4RunManager* runManager = new G4RunManager;
 
   // detector
-  runManager->SetUserInitialization(new GammaDetectorConstruction);
+  runManager->SetUserInitialization(new NeutronDetectorConstruction);
 
   // physics list
   G4VModularPhysicsList *physics_list =
@@ -22,7 +22,7 @@ int main()
   runManager->SetUserInitialization(physics_list);
 
   // how we are handling "run" and "event" actions
-  runManager->SetUserInitialization(new GammaActionInitialization);
+  runManager->SetUserInitialization(new NeutronActionInitialization);
 
   runManager->Initialize();
 
