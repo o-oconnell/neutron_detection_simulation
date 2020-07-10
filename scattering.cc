@@ -13,37 +13,48 @@
 
 int main(int argc, char **argv)
 {
-  G4RunManager* runManager = new G4RunManager;
 
-  // detector
-  runManager->SetUserInitialization(new NeutronDetectorConstruction);
+	// controls program, we pass it our derived detector
+	// object (NeutronDetectorConstruction),
+	// the physics processes (physics_list),
+	// and the "action initialization" which describes the
+	// initial particles that we will create
+	G4RunManager* runManager = new G4RunManager;
+	
+	// physics list
+	G4VModularPhysicsList *physics_list =
+		new QBBC;
+	physics_list->SetVerboseLevel(1);
 
-  // physics list
-  G4VModularPhysicsList *physics_list =
-	  new QBBC;
-  physics_list->SetVerboseLevel(1);
-  runManager->SetUserInitialization(physics_list);
+	// adding the physics list to the run manager
+	runManager->SetUserInitialization(physics_list);
 
+	// detector
+	runManager->SetUserInitialization(new NeutronDetectorConstruction);
 
-  // how we are handling "run" and "event" actions
-  runManager->SetUserInitialization(new NeutronActionInitialization);
+	// how we are handling "run" and "event" actions
+	runManager->SetUserInitialization(new NeutronActionInitialization);
 
-  runManager->Initialize();
-
-  G4VisManager *vis_manager = new G4VisExecutive;
-  vis_manager->Initialize();
+	// initializes the run manager with everything we have passed to it
+	runManager->Initialize();
   
-  G4UImanager* UI = G4UImanager::GetUIpointer();
-  // UI->ApplyCommand("/run/verbose 1");
-  // UI->ApplyCommand("/event/verbose 1");
-  // UI->ApplyCommand("/tracking/verbose 1");
-  UI->ApplyCommand("/control/execute init_vis.mac");
+	// visualization manager. we are only using OpenGL, but the
+	// G4VisExecutive derived class can handle many more
+	G4VisManager *vis_manager = new G4VisExecutive;
+	vis_manager->Initialize();
 
-  G4UIExecutive *ui = new G4UIExecutive(argc, argv);
-  ui->SessionStart();
-  
-  runManager->BeamOn(1);
+	// UI pointer which allows us to interface with the interactive
+	// session that Geant4 sets up for us
+	G4UImanager* UI = G4UImanager::GetUIpointer();
+	UI->ApplyCommand("/control/execute init_vis.mac");
+	
+	G4UIExecutive *ui = new G4UIExecutive(argc, argv);
+	ui->SessionStart();
 
-  delete runManager;
-  return 0;
+	// actually runs the simulation. the number passed to
+	// beamOn is the amount of runs we want to do.
+	runManager->BeamOn(1);
+
+	delete runManager;
+	return 0;
 }
