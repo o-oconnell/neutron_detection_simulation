@@ -34,8 +34,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(scattering scattering.cc ${sources} ${headers})
-target_link_libraries(scattering ${Geant4_LIBRARIES})
+add_executable(neutron_detection neutron_detection.cc ${sources} ${headers})
+target_link_libraries(neutron_detection ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -61,11 +61,11 @@ endforeach()
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(SCATTERING DEPENDS scattering)
+add_custom_target(NEUTRON_DETECTION DEPENDS neutron_detection)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS scattering DESTINATION bin)
+install(TARGETS neutron_detection DESTINATION bin)
 
 

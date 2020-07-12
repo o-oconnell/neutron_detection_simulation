@@ -41,12 +41,30 @@ G4VPhysicalVolume *NeutronDetectorConstruction::Construct()
 					detector_hy,
 					detector_hz);
 
-	
-	// will update this with a custom element
-	G4Material *BF3_detector_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
+
+	// material definitions for BF3, 3He, 4He, all used for neutron detection
+	// molecule definition for BF3:	
+
+	G4double b_molar_mass = 10.81*g/mole;
+	G4Element *elBoron
+		= new G4Element("Boron", "B", 5, b_molar_mass);
+
+	G4double f_molar_mass = 19*g/mole;
+	G4Element *elFluorine
+		= new G4Element("Fluorine", "F", 9, f_molar_mass);
+
+	G4double bf3_density = 0.00276*g/cm3; // anhydrous gas density
+	G4Material *BF3 =
+		new G4Material("Boron Trifluoride",
+			       bf3_density,
+			       2); // the number of elements it contains
+
+	BF3->AddElement(elBoron, 1); // one boron atom
+	BF3->AddElement(elFluorine, 3); // three fluorine atoms
+
 	G4LogicalVolume *logic_BF3_detector
 		= new G4LogicalVolume(BF3_detector,
-				      BF3_detector_material,
+				      BF3,
 				      "BF3Detector");
 	
 	G4PVPlacement *detector_placement = new G4PVPlacement(0,
