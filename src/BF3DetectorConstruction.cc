@@ -1,4 +1,4 @@
-#include "NeutronDetectorConstruction.hh"
+#include "BF3DetectorConstruction.hh"
 
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
@@ -7,12 +7,12 @@
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
 
-NeutronDetectorConstruction::NeutronDetectorConstruction() :
+BF3DetectorConstruction::BF3DetectorConstruction() :
 	G4VUserDetectorConstruction() {}
 	
-G4VPhysicalVolume *NeutronDetectorConstruction::Construct()
+
+G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 {
-	
 	G4NistManager *nist_mgr = G4NistManager::Instance();
 	
         G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
@@ -42,9 +42,8 @@ G4VPhysicalVolume *NeutronDetectorConstruction::Construct()
 					detector_hz);
 
 
-	// material definitions for BF3, 3He, 4He, all used for neutron detection
-	// molecule definition for BF3:	
-
+	// material definition for boron trifluoride, which we are
+	// using as our detection material
 	G4double b_molar_mass = 10.81*g/mole;
 	G4Element *elBoron
 		= new G4Element("Boron", "B", 5, b_molar_mass);
@@ -76,9 +75,9 @@ G4VPhysicalVolume *NeutronDetectorConstruction::Construct()
 							      0,
 							      true); // check for overlaps
 							      
-							      
-				      
-				      
+
+
+	
 	
 	return physical_world;
 }

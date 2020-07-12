@@ -2,7 +2,9 @@
 #include "G4UImanager.hh"
 
 #include "NeutronActionInitialization.hh"
-#include "NeutronDetectorConstruction.hh"
+#include "4HeDetectorConstruction.hh"
+#include "3HeDetectorConstruction.hh"
+#include "BF3DetectorConstruction.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VUserPhysicsList.hh"
@@ -13,7 +15,6 @@
 
 int main(int argc, char **argv)
 {
-
 	// controls program, we pass it our derived detector
 	// object (NeutronDetectorConstruction),
 	// the physics processes (physics_list),
@@ -30,7 +31,7 @@ int main(int argc, char **argv)
 	runManager->SetUserInitialization(physics_list);
 
 	// detector
-	runManager->SetUserInitialization(new NeutronDetectorConstruction);
+	runManager->SetUserInitialization(new _4HeDetectorConstruction);
 
 	// how we are handling "run" and "event" actions
 	runManager->SetUserInitialization(new NeutronActionInitialization);
@@ -43,11 +44,14 @@ int main(int argc, char **argv)
 	G4VisManager *vis_manager = new G4VisExecutive;
 	vis_manager->Initialize();
 
+	
 	// UI pointer which allows us to interface with the interactive
 	// session that Geant4 sets up for us
 	G4UImanager* UI = G4UImanager::GetUIpointer();
 	UI->ApplyCommand("/control/execute init_vis.mac");
-	
+
+	// keeps our GUI session running, prevents it from immediately
+	// opening and closing
 	G4UIExecutive *ui = new G4UIExecutive(argc, argv);
 	ui->SessionStart();
 
