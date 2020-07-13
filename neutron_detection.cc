@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 	runManager->SetUserInitialization(physics_list);
 
 	// detector
-	runManager->SetUserInitialization(new _4HeDetectorConstruction);
+	runManager->SetUserInitialization(new _3HeDetectorConstruction);
 
 	// how we are handling "run" and "event" actions
 	runManager->SetUserInitialization(new NeutronActionInitialization);

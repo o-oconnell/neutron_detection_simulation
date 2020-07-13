@@ -72,8 +72,6 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 				 293*kelvin, // temperature
 				 1.51988*bar); // pressure
 
-
-
 	G4LogicalVolume *logic_4He_detector
 		= new G4LogicalVolume(_4He_detector,
 				      helium_4_material,
@@ -81,8 +79,7 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 	
 	G4PVPlacement *detector_placement =
 		new G4PVPlacement(0,
-				  G4ThreeVector(0, 50*cm, 0*cm),
-				  logic_4He_detector,
+				  G4ThreeVector(0, 50*cm, 0*cm),				  logic_4He_detector,
 				  "4HeDetector",
 				  logical_world, // parent volume
 				  false,
