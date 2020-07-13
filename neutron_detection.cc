@@ -4,6 +4,7 @@
 #include "NeutronActionInitialization.hh"
 #include "4HeDetectorConstruction.hh"
 #include "3HeDetectorConstruction.hh"
+#include "3HeWorldConstruction.hh"
 #include "BF3DetectorConstruction.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
 #include "G4VUserDetectorConstruction.hh"
@@ -31,7 +32,7 @@ int main(int argc, char **argv)
 	runManager->SetUserInitialization(physics_list);
 
 	// detector
-	runManager->SetUserInitialization(new _3HeDetectorConstruction);
+	runManager->SetUserInitialization(new _3HeWorldConstruction);
 
 	// how we are handling "run" and "event" actions
 	runManager->SetUserInitialization(new NeutronActionInitialization);
@@ -44,21 +45,24 @@ int main(int argc, char **argv)
 	G4VisManager *vis_manager = new G4VisExecutive;
 	vis_manager->Initialize();
 
-	
 	// UI pointer which allows us to interface with the interactive
 	// session that Geant4 sets up for us
-	G4UImanager* UI = G4UImanager::GetUIpointer();
-	UI->ApplyCommand("/control/execute init_vis.mac");
+	G4UImanager* UI_manager = G4UImanager::GetUIpointer();
+	UI_manager->ApplyCommand("/control/execute init_vis.mac");
 
 	// keeps our GUI session running, prevents it from immediately
 	// opening and closing
 	G4UIExecutive *ui = new G4UIExecutive(argc, argv);
 	ui->SessionStart();
 
+	runManager->BeamOn(100);
+	delete ui;
+
 	// actually runs the simulation. the number passed to
 	// beamOn is the amount of runs we want to do.
-	runManager->BeamOn(1);
+	
 
+	delete vis_manager;
 	delete runManager;
 	return 0;
 }
