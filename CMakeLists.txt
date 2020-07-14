@@ -3,6 +3,7 @@
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(neutron_detection_simulation)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g")
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -64,7 +65,7 @@ endforeach()
 add_custom_target(NEUTRON_DETECTION DEPENDS neutron_detection)
 
 #----------------------------------------------------------------------------
-# Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
+# Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX/
 #
 install(TARGETS neutron_detection DESTINATION bin)
 

@@ -17,8 +17,9 @@ public:
 	NeutronPrimaryGeneratorAction();
 	virtual ~NeutronPrimaryGeneratorAction();
 
-	virtual void GeneratePrimaries(G4Event*);	
-};
+	virtual void GeneratePrimaries(G4Event*);
 
+	G4ParticleGun* GetParticleGun();
+};
 
 #endif
