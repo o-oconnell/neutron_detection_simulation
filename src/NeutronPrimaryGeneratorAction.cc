@@ -6,6 +6,9 @@
 #include "G4ParticleTable.hh"
 #include "Randomize.hh"
 
+// computes the desired primary particle properties, initializes the
+// neutron gun so that the Event class can access it.
+
 NeutronPrimaryGeneratorAction::NeutronPrimaryGeneratorAction() :
 	G4VUserPrimaryGeneratorAction(),
 	particle_gun(0)
@@ -26,6 +29,14 @@ NeutronPrimaryGeneratorAction::~NeutronPrimaryGeneratorAction()
 	delete particle_gun;
 }
 
+// used by the NeutronRunAction class to get the particle gun
+// 
+G4ParticleGun* NeutronPrimaryGeneratorAction::GetParticleGun()
+{
+	return particle_gun;
+}
+
+// called whenever an event occurs
 void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 {
 	G4double environment_size_xy_axis = 2;
