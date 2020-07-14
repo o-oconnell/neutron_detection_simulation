@@ -58,16 +58,15 @@ int main(int argc, char **argv)
 	UI_manager->ApplyCommand("/run/verbose 1");
 	UI_manager->ApplyCommand("/event/verbose 1");
 	UI_manager->ApplyCommand("/tracking/verbose 1");
-	// if (ui) {
-	// 	UI_manager->ApplyCommand("/control/execute init_vis.mac");
+	if (ui) {
+		UI_manager->ApplyCommand("/control/execute init_vis.mac");
 		
-	// 	ui->SessionStart();
-	// 	// actually runs the simulation. the number passed to
-	// 	// beamOn is the amount of runs we want to do.
-	// 	// runManager->BeamOn(100);
-	// 	delete ui;
-	// }
-	runManager->BeamOn(1);
+		ui->SessionStart();
+		// actually runs the simulation. the number passed to
+		// beamOn is the amount of runs we want to do.
+		runManager->BeamOn(100);
+		delete ui;
+	}
 	
 	
 	delete vis_manager;

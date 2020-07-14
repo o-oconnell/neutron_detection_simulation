@@ -37,8 +37,11 @@ G4VPhysicalVolume *_3HeWorldConstruction::Construct()
 		(3.016*g/mole * 1.51988*bar)/(293*kelvin*grams_per_mol);
 
 	G4State helium_gas_state = kStateGas;
-	G4Material *helium_3_material
-		= new G4Material("3He",
+
+	G4NistManager *nist_mgr = G4NistManager::Instance();
+	
+	G4Material *helium_3_material = //nist_mgr->FindOrBuildMaterial("G4_AIR");
+		 new G4Material("3He",
 				 helium_3_density,
 				 1, // number of components
 				 helium_gas_state, // the state of the material (gas here)
@@ -54,6 +57,7 @@ G4VPhysicalVolume *_3HeWorldConstruction::Construct()
 	G4LogicalVolume *logical_world = new G4LogicalVolume(world,
 							     helium_3_material,
 							     "world");
+	
 	G4VPhysicalVolume *physical_world = new G4PVPlacement(0, G4ThreeVector(),
 							      logical_world,
 							      "world",
