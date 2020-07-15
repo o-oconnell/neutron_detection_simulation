@@ -14,8 +14,12 @@ BF3DetectorConstruction::BF3DetectorConstruction() :
 G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 {
 	G4NistManager *nist_mgr = G4NistManager::Instance();
+
+
+	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_Galactic"); // vacuum 
 	
-        G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
+	// G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_WATER");
+        // G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
 	
 	G4double world_hx = 4.0*m;
 	G4double world_hy = 1.0*m;
@@ -23,16 +27,17 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 
 	G4Box *world = new G4Box("World", world_hx, world_hy, world_hz);
 
-	G4LogicalVolume *logical_world = new G4LogicalVolume(world,
-							     world_material,
-							     "world");
-	G4VPhysicalVolume *physical_world = new G4PVPlacement(0, G4ThreeVector(),
-							     logical_world,
-							     "world",
-							     0,
-							     false,
-							     0,
-							     true);
+	G4LogicalVolume *logical_world = new G4LogicalVolume(world, // geometry
+							     world_material, // material
+							     "world"); // name
+	G4VPhysicalVolume *physical_world = new G4PVPlacement(0, // rotation
+							      G4ThreeVector(), // translation relative to mother
+							      logical_world, // logical volume
+							      "world", // name
+							      0, // parent logical volume
+							      false, // bool if there are multiple
+							      0, // number of copies
+							      true); // check overlaps
        	G4double detector_hx = 50.0*cm;
 	G4double detector_hy = 50.0*cm;
 	G4double detector_hz = 50.0*cm;

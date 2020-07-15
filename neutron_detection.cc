@@ -13,13 +13,14 @@
 #include "G4VUserActionInitialization.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
-#include "QBBC.hh"
+#include "QGSP_BERT_HP.hh"
 
 int main(int argc, char **argv)
 {
 	// initialize the UI executive, which keeps our GUI session running
 	// and prevents it from immediately
 	// opening and closing
+	// (this is for the GUI, not the TUI)
 	G4UIExecutive *ui = new G4UIExecutive(argc, argv);
 	
 	// controls program, we pass it our derived detector
@@ -34,7 +35,7 @@ int main(int argc, char **argv)
 
 	// physics list
 	G4VModularPhysicsList *physics_list =
-		new QBBC;
+		new QGSP_BERT_HP;
 	physics_list->SetVerboseLevel(1);
 	
 	// adding the physics list to the run manager
@@ -58,13 +59,13 @@ int main(int argc, char **argv)
 	UI_manager->ApplyCommand("/run/verbose 1");
 	UI_manager->ApplyCommand("/event/verbose 1");
 	UI_manager->ApplyCommand("/tracking/verbose 1");
+	
 	if (ui) {
 		UI_manager->ApplyCommand("/control/execute init_vis.mac");
 		
 		ui->SessionStart();
 		// actually runs the simulation. the number passed to
 		// beamOn is the amount of runs we want to do.
-		runManager->BeamOn(100);
 		delete ui;
 	}
 	

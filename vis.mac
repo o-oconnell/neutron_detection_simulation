@@ -31,8 +31,8 @@
 #/vis/scene/add/hits
 #
 # To draw only gammas:
-/vis/filtering/trajectories/create/particleFilter
-/vis/filtering/trajectories/particleFilter-0/add neutron
+#/vis/filtering/trajectories/create/particleFilter
+# /vis/filtering/trajectories/particleFilter-0/add neutron
 #
 # To invert the above, drawing all particles except gammas,
 # keep the above two lines but also add:
@@ -40,11 +40,11 @@
 #
 # Many other options are available with /vis/modeling and /vis/filtering.
 # For example, to select colour by particle ID:
-#/vis/modeling/trajectories/create/drawByParticleID
-#/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
 # To select or override default colours (note: e+ is blue by default):
 #/vis/modeling/trajectories/list
-#/vis/modeling/trajectories/drawByParticleID-0/set e+ yellow
+/vis/modeling/trajectories/drawByParticleID-0/set neutron green
 #
 # To superimpose all of the events from a given run:
 /vis/scene/endOfEventAction accumulate
@@ -74,23 +74,19 @@
 /vis/set/colour        # Revert to default colour (white)
 /vis/set/lineWidth     # Revert to default line width (1.)
 #
-# Attach text to one edge of Shape1, with a small, fixed offset
+
+# label our shape
 /vis/scene/add/text 0 6 -4 cm 18 4 4 Neutron detector
-# Attach text to one corner of Shape2, with a small, fixed offset
-# /vis/scene/add/text 6 7 10 cm 18 4 4 Shape2
-#
-# To get nice view
-# Make the "World" box invisible
-#/vis/geometry/set/visibility world 0 false
-# "Envelope" is transparent blue to represent water
+
+# Get a three dimensional view by setting viewpoint
 /vis/viewer/set/hiddenMarker true
 /vis/viewer/set/viewpointThetaPhi 120 150
-#
+
 /vis/scene/add/trajectories
 /vis/scene/add/hits
 # Re-establish auto refreshing and verbosity:
 /vis/viewer/set/autoRefresh true
 /vis/verbose warnings
 #
-# For file-based drivers, use this to create an empty detector view:
-#/vis/viewer/flush
+
+/run/beamOn 1000

@@ -16,12 +16,13 @@ NeutronPrimaryGeneratorAction::NeutronPrimaryGeneratorAction() :
 	particle_gun = new G4ParticleGun(1);
 	
 	G4ParticleTable *particle_table = G4ParticleTable::GetParticleTable();
-	G4String particle_name;
-	G4ParticleDefinition *particle = particle_table->FindParticle(particle_name="neutron");
+	G4ParticleDefinition *particle = particle_table->FindParticle("neutron");
 
 	particle_gun->SetParticleDefinition(particle);
 	particle_gun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-	particle_gun->SetParticleEnergy(3.*MeV);
+
+	// approximate standard thermal neutron energy
+	particle_gun->SetParticleEnergy(0.025*eV);
 }
 
 NeutronPrimaryGeneratorAction::~NeutronPrimaryGeneratorAction()
