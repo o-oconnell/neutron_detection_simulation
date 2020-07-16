@@ -36,5 +36,5 @@ void HistogramsAnalysisManager::CreateInactiveHistograms()
 
 	// leave the histogram deactivated since we want the user
 	// to specify the bins, min, and max energy using macros
-	analysis_manager->SetH1Activation(histogram_id, false);
+	analysis_manager->SetH1Activation(histogram_id, true);
 }

@@ -1,5 +1,7 @@
 #include "BF3DetectorConstruction.hh"
+#include "CounterSD.hh"
 
+#include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -70,6 +72,12 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 		= new G4LogicalVolume(BF3_detector,
 				      BF3,
 				      "BF3Detector");
+
+	// add the sensitive detector to the logical volume
+	CounterSD* sensitive = new CounterSD("BF3");
+	G4SDManager* sd_mgr = G4SDManager::GetSDMpointer();
+	sd_mgr->AddNewDetector(sensitive);
+	logic_BF3_detector->SetSensitiveDetector(sensitive);
 	
 	G4PVPlacement *detector_placement = new G4PVPlacement(0,
 							      G4ThreeVector(0, 50*cm, 0*cm),

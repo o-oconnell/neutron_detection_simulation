@@ -89,4 +89,10 @@
 /vis/verbose warnings
 #
 
+
+# histogram settings:
+# id, number of bins, minimum, maximum, unit
+/analysis/h1/set 1 100 0 1 keV
+/analysis/setFileName testout
+
 /run/beamOn 1000
