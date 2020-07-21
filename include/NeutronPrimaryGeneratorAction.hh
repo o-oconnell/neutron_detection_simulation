@@ -1,3 +1,10 @@
+/**
+ * @author Oisin O'Connell
+ * @file NeutronPrimaryGeneratorAction.hh
+ * @date 7/20/20
+ * @brief primary generator neutron action, where we create our thermal neutrons
+ */
+
 #ifndef NEUTRON_PRIMARY_GENERATOR_ACTION_H
 #define NEUTRON_PRIMARY_GENERATOR_ACTION_H
 

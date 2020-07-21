@@ -18,10 +18,11 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4NistManager *nist_mgr = G4NistManager::Instance();
 
 
-	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_Galactic"); // vacuum 
+	//	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_Galactic"); // vacuum 
 	
 	// G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_WATER");
-        // G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
+	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
+
 	
 	G4double world_hx = 4.0*m;
 	G4double world_hy = 1.0*m;
