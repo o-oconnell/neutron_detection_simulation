@@ -52,13 +52,18 @@ G4ParticleGun* NeutronPrimaryGeneratorAction::GetParticleGun()
  */
 void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 {
-	G4double environment_size_xy_axis = 2;
-	
+	// currently all of our particles are generated in somewhat random
+	// locations near the back corner of the world (which provides us
+	// with our coordinate system)
+	// since our locations are random some will be outside of the world
+	G4double environment_size_xy_axis = 4;
+
 	G4double size = 0.3;
 	G4double x0 = size * environment_size_xy_axis * (G4UniformRand()-0.5);
 	G4double y0 = size * environment_size_xy_axis * (G4UniformRand()-0.5);
-	G4double z0 = -0.5 * environment_size_xy_axis;
-	
+	G4double z0 = environment_size_xy_axis;
+
+	//	std::cout << "INITIAL PARTICLE POSITION: " << x0 << " " << y0 << " " << z0 << '\n';
 	particle_gun->SetParticlePosition(G4ThreeVector(x0, y0, z0));
 	
 	particle_gun->GeneratePrimaryVertex(event);

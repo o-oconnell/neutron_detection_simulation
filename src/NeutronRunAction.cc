@@ -54,7 +54,7 @@ void NeutronRunAction::BeginOfRunAction(const G4Run* run)
 	G4double energy = fPrimaryGeneratorAction
 		->GetParticleGun()
 		->GetParticleEnergy();
-
+	
 	// open the file for our analysis manager,
 	// this file is written to with the neutron energy spectrum
 	// when we call the macro
@@ -73,9 +73,6 @@ void NeutronRunAction::EndOfRunAction(const G4Run* run)
 	// since it will be proportional to the number of particles
 	analysis_mgr->ScaleH1(1, fRun->GetNumberOfEvent());
 
-	// close the file, write the data
-	if (analysis_mgr->IsActive()) {
-		analysis_mgr->Write();
-		analysis_mgr->CloseFile();
-	}
+	analysis_mgr->Write();
+	analysis_mgr->CloseFile();
 }

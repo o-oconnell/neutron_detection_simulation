@@ -24,9 +24,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
 
 	
-	G4double world_hx = 4.0*m;
-	G4double world_hy = 1.0*m;
-	G4double world_hz = 2.0*m;
+	G4double world_hx = 10*m;
+	G4double world_hy = 10*m;
+	G4double world_hz = 20*m;
 
 	G4Box *world = new G4Box("World", world_hx, world_hy, world_hz);
 
@@ -41,9 +41,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 							      false, // bool if there are multiple
 							      0, // number of copies
 							      true); // check overlaps
-       	G4double detector_hx = 50.0*cm;
-	G4double detector_hy = 50.0*cm;
-	G4double detector_hz = 50.0*cm;
+       	G4double detector_hx = 1.0*m;
+	G4double detector_hy = 1.0*m;
+	G4double detector_hz = 1.0*m;
 	G4Box *BF3_detector = new G4Box("BF3Detector",
 					detector_hx,
 					detector_hy,

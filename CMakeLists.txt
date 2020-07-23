@@ -44,8 +44,7 @@ target_link_libraries(neutron_detection ${Geant4_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(NEUTRON_SCRIPTS
-    init_vis.mac
-    vis.mac
+    run1_thermal_neutrons.mac
     )
 
 

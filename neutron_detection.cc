@@ -39,7 +39,7 @@ void getInput();
  */
 int main(int argc, char **argv)
 {
-	getInput();
+	//	getInput();
 	
 	// initialize the UI executive, which keeps our GUI session running
 	// and prevents it from immediately
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	G4RunManager* runManager = new G4RunManager;
 	
 	// detector
-	runManager->SetUserInitialization(new MultipleWorldConstruction);
+	runManager->SetUserInitialization(new BF3DetectorConstruction);
 
 	// physics list
 	G4VModularPhysicsList *physics_list =
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	
 	// initializes the run manager with everything we have passed to it
 	runManager->Initialize();
-  
+	
 	// visualization manager. we are only using OpenGL, but the
 	// G4VisExecutive derived class can handle many more
 	G4VisManager *vis_manager = new G4VisExecutive;
@@ -83,15 +83,10 @@ int main(int argc, char **argv)
 	UI_manager->ApplyCommand("/run/verbose 1");
 	UI_manager->ApplyCommand("/event/verbose 1");
 	UI_manager->ApplyCommand("/tracking/verbose 1");
+	UI_manager->ApplyCommand("/control/execute run1_thermal_neutrons.mac");
+	ui->SessionStart();
 
-	UI_manager->ApplyCommand("/control/execute init_vis.mac");
-	//runManager->BeamOn(1000);
-	ui->SessionStart();	
-
-	// actually runs the simulation. the number passed to
-	// beamOn is the amount of runs we want to do.
 	delete ui;
-	
 	delete vis_manager;
 	delete runManager;
 	return 0;
