@@ -3,7 +3,11 @@
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(neutron_detection_simulation)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g -rdynamic")
+
+#GTK setup stuff
+FIND_PACKAGE(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(GTK REQUIRED gtk+-3.0)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -22,8 +26,10 @@ endif()
 # Setup include directory for this project
 #
 include(${Geant4_USE_FILE})
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include ${GTK_INCLUDE_DIRS})
+LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
 
+ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
 
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
@@ -36,7 +42,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 # Add the executable, and link it to the Geant4 libraries
 #
 add_executable(neutron_detection neutron_detection.cc ${sources} ${headers})
-target_link_libraries(neutron_detection ${Geant4_LIBRARIES})
+target_link_libraries(neutron_detection ${Geant4_LIBRARIES} ${GTK_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -56,6 +62,8 @@ foreach(_script ${NEUTRON_SCRIPTS})
      COPYONLY
      )
 endforeach()
+
+
 
 #----------------------------------------------------------------------------
 # For internal Geant4 use - but has no effect if you build this

@@ -17,12 +17,18 @@
 #include "BF3DetectorConstruction.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
 
+#include "G4ThermalNeutrons.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VUserPhysicsList.hh"
 #include "G4VUserActionInitialization.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
 #include "QGSP_BERT_HP.hh"
+#include "QBBC.hh"
+#include "G4EmStandardPhysics.hh"
+#include "G4HadronElasticPhysicsLEND.hh"
+#include "G4HadronPhysicsShieldingLEND.hh"
+#include "GTKInput.hh"
 
 #include <thread>
 #include <chrono>
@@ -39,6 +45,7 @@ void getInput();
  */
 int main(int argc, char **argv)
 {
+	create_data_entry_window();
 	//	getInput();
 	
 	// initialize the UI executive, which keeps our GUI session running
@@ -60,6 +67,12 @@ int main(int argc, char **argv)
 	// physics list
 	G4VModularPhysicsList *physics_list =
 		new QGSP_BERT_HP;
+	physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
+
+	// physics_list->RegisterPhysics(new G4HadronElasticPhysicsLEND(0));
+	// physics_list->RegisterPhysics(new G4HadronPhysicsShieldingLEND(0));
+	physics_list->RegisterPhysics(new G4ThermalNeutrons(0));
+
 	physics_list->SetVerboseLevel(1);
 	
 	// adding the physics list to the run manager
@@ -84,11 +97,15 @@ int main(int argc, char **argv)
 	UI_manager->ApplyCommand("/event/verbose 1");
 	UI_manager->ApplyCommand("/tracking/verbose 1");
 	UI_manager->ApplyCommand("/control/execute run1_thermal_neutrons.mac");
+	runManager->BeamOn(results->input->num_events);
 	ui->SessionStart();
 
 	delete ui;
 	delete vis_manager;
 	delete runManager;
+	
+	// create the gtk window we use to output our results
+	//create_result_window();
 	return 0;
 }
 

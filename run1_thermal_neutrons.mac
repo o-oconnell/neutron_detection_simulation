@@ -1,4 +1,4 @@
-/vis/open OGL 600x600-0+0
+
 
 # modified default settings from the "B1" example:
 # Disable auto refresh and quieten vis messages whilst scene and
@@ -82,5 +82,3 @@
 #/analysis/h1/set 1 100 0 1 keV
 #/analysis/setFileName testout
 
-# the amount of runs we want to do
-/run/beamOn 100

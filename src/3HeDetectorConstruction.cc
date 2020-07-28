@@ -1,5 +1,7 @@
 #include "3HeDetectorConstruction.hh"
+#include "CounterSD.hh"
 
+#include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -51,7 +53,7 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 		new G4Element("Helium-3",
 			      "3He",
 			      1); // number of isotopes
-	helium_3_element->AddIsotope(helium_3_iso, 100*perCent);
+	helium_3_element->AddIsotope(helium_3_iso, 100.*perCent);
 
 	// density obviously varies with temperature, so here we define
 	// the temperature of our gas-filled chamber
@@ -83,19 +85,21 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 				      helium_3_material,
 				      "3HeDetector");
 	
+	// add the sensitive detector to the logical volume
+	// CounterSD* sensitive = new CounterSD("3He");
+	// G4SDManager* sd_mgr = G4SDManager::GetSDMpointer();
+	// sd_mgr->AddNewDetector(sensitive);
+	// logic_3He_detector->SetSensitiveDetector(sensitive);
+	
 	G4PVPlacement *detector_placement =
 		new G4PVPlacement(0,
 				  G4ThreeVector(0, 50*cm, 0*cm),
 				  logic_3He_detector,
 				  "3HeDetector",
 				  logical_world, // parent volume
-				  false,
-				  0,
+				  false, // multiple volumes
+				  0, // amount of multiple volumes if any
 				  true); // check for overlaps
-	
-
-
-	
 	
 	return physical_world;
 }

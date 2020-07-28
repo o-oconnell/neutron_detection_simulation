@@ -7,6 +7,7 @@
  */
 
 #include "NeutronPrimaryGeneratorAction.hh"
+#include "GTKInput.hh"
 
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleDefinition.hh"
@@ -31,7 +32,9 @@ NeutronPrimaryGeneratorAction::NeutronPrimaryGeneratorAction() :
 	particle_gun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
 
 	// approximate standard thermal neutron energy
-	particle_gun->SetParticleEnergy(0.025*eV);
+	std::cout << "PARTICLE GUN ENERGY:\n";
+	std::cout << results->input->neutron_energy << '\n';
+	particle_gun->SetParticleEnergy(results->input->neutron_energy*eV);
 }
 
 NeutronPrimaryGeneratorAction::~NeutronPrimaryGeneratorAction()
@@ -56,14 +59,14 @@ void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 	// locations near the back corner of the world (which provides us
 	// with our coordinate system)
 	// since our locations are random some will be outside of the world
-	G4double environment_size_xy_axis = 4;
+	G4double environment_size_xy_axis = 2*m;
 
-	G4double size = 0.3;
-	G4double x0 = size * environment_size_xy_axis * (G4UniformRand()-0.5);
-	G4double y0 = size * environment_size_xy_axis * (G4UniformRand()-0.5);
-	G4double z0 = environment_size_xy_axis;
 
-	//	std::cout << "INITIAL PARTICLE POSITION: " << x0 << " " << y0 << " " << z0 << '\n';
+	G4double x0 = environment_size_xy_axis * (G4UniformRand()-0.5) ;
+	G4double y0 = environment_size_xy_axis * (G4UniformRand()-0.5) ;
+	G4double z0 = environment_size_xy_axis * -1 ;
+
+	std::cout << "INITIAL PARTICLE POSITION: " << x0 << " " << y0 << " " << z0 << '\n';
 	particle_gun->SetParticlePosition(G4ThreeVector(x0, y0, z0));
 	
 	particle_gun->GeneratePrimaryVertex(event);

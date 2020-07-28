@@ -1,5 +1,6 @@
 #include "BF3DetectorConstruction.hh"
 #include "CounterSD.hh"
+#include "GTKInput.hh"
 
 #include "G4SDManager.hh"
 #include "G4RunManager.hh"
@@ -21,12 +22,15 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	//	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_Galactic"); // vacuum 
 	
 	// G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_WATER");
-	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
-
+	std::cout <<"PRINTING WORLD MATERIAL:\n";
+	std::cout << results->input->world_material << '\n';
 	
-	G4double world_hx = 10*m;
-	G4double world_hy = 10*m;
-	G4double world_hz = 20*m;
+	G4Material *world_material =
+		nist_mgr->FindOrBuildMaterial(results->input->world_material);
+	
+	G4double world_hx = 4*m;
+	G4double world_hy = 4*m;
+	G4double world_hz = 4*m;
 
 	G4Box *world = new G4Box("World", world_hx, world_hy, world_hz);
 
@@ -41,9 +45,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 							      false, // bool if there are multiple
 							      0, // number of copies
 							      true); // check overlaps
-       	G4double detector_hx = 1.0*m;
-	G4double detector_hy = 1.0*m;
-	G4double detector_hz = 1.0*m;
+       	G4double detector_hx = 4.0*m;
+	G4double detector_hy = 2.0*m;
+	G4double detector_hz = 2.0*m;
 	G4Box *BF3_detector = new G4Box("BF3Detector",
 					detector_hx,
 					detector_hy,

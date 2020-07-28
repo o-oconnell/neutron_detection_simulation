@@ -48,13 +48,25 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ooc/neutron_detection_simulation
+CMAKE_SOURCE_DIR = /home/ooc/B1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ooc/neutron_detection_simulation
+CMAKE_BINARY_DIR = /home/ooc/B1-build
 
 #=============================================================================
 # Targets provided globally by CMake.
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -68,17 +80,17 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -93,8 +105,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -112,23 +124,11 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ooc/neutron_detection_simulation/CMakeFiles /home/ooc/neutron_detection_simulation/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ooc/B1-build/CMakeFiles /home/ooc/B1-build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ooc/neutron_detection_simulation/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ooc/B1-build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -157,273 +157,219 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named NEUTRON_DETECTION
+# Target rules for targets named B1
 
 # Build rule for target.
-NEUTRON_DETECTION: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NEUTRON_DETECTION
-.PHONY : NEUTRON_DETECTION
+B1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 B1
+.PHONY : B1
 
 # fast build rule for target.
-NEUTRON_DETECTION/fast:
-	$(MAKE) -f CMakeFiles/NEUTRON_DETECTION.dir/build.make CMakeFiles/NEUTRON_DETECTION.dir/build
-.PHONY : NEUTRON_DETECTION/fast
+B1/fast:
+	$(MAKE) -f CMakeFiles/B1.dir/build.make CMakeFiles/B1.dir/build
+.PHONY : B1/fast
 
 #=============================================================================
-# Target rules for targets named neutron_detection
+# Target rules for targets named exampleB1
 
 # Build rule for target.
-neutron_detection: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 neutron_detection
-.PHONY : neutron_detection
+exampleB1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 exampleB1
+.PHONY : exampleB1
 
 # fast build rule for target.
-neutron_detection/fast:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/build
-.PHONY : neutron_detection/fast
+exampleB1/fast:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/build
+.PHONY : exampleB1/fast
 
-neutron_detection.o: neutron_detection.cc.o
+exampleB1.o: exampleB1.cc.o
 
-.PHONY : neutron_detection.o
-
-# target to build an object file
-neutron_detection.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/neutron_detection.cc.o
-.PHONY : neutron_detection.cc.o
-
-neutron_detection.i: neutron_detection.cc.i
-
-.PHONY : neutron_detection.i
-
-# target to preprocess a source file
-neutron_detection.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/neutron_detection.cc.i
-.PHONY : neutron_detection.cc.i
-
-neutron_detection.s: neutron_detection.cc.s
-
-.PHONY : neutron_detection.s
-
-# target to generate assembly for a file
-neutron_detection.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/neutron_detection.cc.s
-.PHONY : neutron_detection.cc.s
-
-src/3HeDetectorConstruction.o: src/3HeDetectorConstruction.cc.o
-
-.PHONY : src/3HeDetectorConstruction.o
+.PHONY : exampleB1.o
 
 # target to build an object file
-src/3HeDetectorConstruction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeDetectorConstruction.cc.o
-.PHONY : src/3HeDetectorConstruction.cc.o
+exampleB1.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/exampleB1.cc.o
+.PHONY : exampleB1.cc.o
 
-src/3HeDetectorConstruction.i: src/3HeDetectorConstruction.cc.i
+exampleB1.i: exampleB1.cc.i
 
-.PHONY : src/3HeDetectorConstruction.i
+.PHONY : exampleB1.i
 
 # target to preprocess a source file
-src/3HeDetectorConstruction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeDetectorConstruction.cc.i
-.PHONY : src/3HeDetectorConstruction.cc.i
+exampleB1.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/exampleB1.cc.i
+.PHONY : exampleB1.cc.i
 
-src/3HeDetectorConstruction.s: src/3HeDetectorConstruction.cc.s
+exampleB1.s: exampleB1.cc.s
 
-.PHONY : src/3HeDetectorConstruction.s
+.PHONY : exampleB1.s
 
 # target to generate assembly for a file
-src/3HeDetectorConstruction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeDetectorConstruction.cc.s
-.PHONY : src/3HeDetectorConstruction.cc.s
+exampleB1.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/exampleB1.cc.s
+.PHONY : exampleB1.cc.s
 
-src/3HeWorldConstruction.o: src/3HeWorldConstruction.cc.o
+src/B1ActionInitialization.o: src/B1ActionInitialization.cc.o
 
-.PHONY : src/3HeWorldConstruction.o
+.PHONY : src/B1ActionInitialization.o
 
 # target to build an object file
-src/3HeWorldConstruction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeWorldConstruction.cc.o
-.PHONY : src/3HeWorldConstruction.cc.o
+src/B1ActionInitialization.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1ActionInitialization.cc.o
+.PHONY : src/B1ActionInitialization.cc.o
 
-src/3HeWorldConstruction.i: src/3HeWorldConstruction.cc.i
+src/B1ActionInitialization.i: src/B1ActionInitialization.cc.i
 
-.PHONY : src/3HeWorldConstruction.i
+.PHONY : src/B1ActionInitialization.i
 
 # target to preprocess a source file
-src/3HeWorldConstruction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeWorldConstruction.cc.i
-.PHONY : src/3HeWorldConstruction.cc.i
+src/B1ActionInitialization.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1ActionInitialization.cc.i
+.PHONY : src/B1ActionInitialization.cc.i
 
-src/3HeWorldConstruction.s: src/3HeWorldConstruction.cc.s
+src/B1ActionInitialization.s: src/B1ActionInitialization.cc.s
 
-.PHONY : src/3HeWorldConstruction.s
+.PHONY : src/B1ActionInitialization.s
 
 # target to generate assembly for a file
-src/3HeWorldConstruction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/3HeWorldConstruction.cc.s
-.PHONY : src/3HeWorldConstruction.cc.s
+src/B1ActionInitialization.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1ActionInitialization.cc.s
+.PHONY : src/B1ActionInitialization.cc.s
 
-src/4HeDetectorConstruction.o: src/4HeDetectorConstruction.cc.o
+src/B1DetectorConstruction.o: src/B1DetectorConstruction.cc.o
 
-.PHONY : src/4HeDetectorConstruction.o
+.PHONY : src/B1DetectorConstruction.o
 
 # target to build an object file
-src/4HeDetectorConstruction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/4HeDetectorConstruction.cc.o
-.PHONY : src/4HeDetectorConstruction.cc.o
+src/B1DetectorConstruction.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1DetectorConstruction.cc.o
+.PHONY : src/B1DetectorConstruction.cc.o
 
-src/4HeDetectorConstruction.i: src/4HeDetectorConstruction.cc.i
+src/B1DetectorConstruction.i: src/B1DetectorConstruction.cc.i
 
-.PHONY : src/4HeDetectorConstruction.i
+.PHONY : src/B1DetectorConstruction.i
 
 # target to preprocess a source file
-src/4HeDetectorConstruction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/4HeDetectorConstruction.cc.i
-.PHONY : src/4HeDetectorConstruction.cc.i
+src/B1DetectorConstruction.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1DetectorConstruction.cc.i
+.PHONY : src/B1DetectorConstruction.cc.i
 
-src/4HeDetectorConstruction.s: src/4HeDetectorConstruction.cc.s
+src/B1DetectorConstruction.s: src/B1DetectorConstruction.cc.s
 
-.PHONY : src/4HeDetectorConstruction.s
+.PHONY : src/B1DetectorConstruction.s
 
 # target to generate assembly for a file
-src/4HeDetectorConstruction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/4HeDetectorConstruction.cc.s
-.PHONY : src/4HeDetectorConstruction.cc.s
+src/B1DetectorConstruction.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1DetectorConstruction.cc.s
+.PHONY : src/B1DetectorConstruction.cc.s
 
-src/BF3DetectorConstruction.o: src/BF3DetectorConstruction.cc.o
+src/B1EventAction.o: src/B1EventAction.cc.o
 
-.PHONY : src/BF3DetectorConstruction.o
+.PHONY : src/B1EventAction.o
 
 # target to build an object file
-src/BF3DetectorConstruction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/BF3DetectorConstruction.cc.o
-.PHONY : src/BF3DetectorConstruction.cc.o
+src/B1EventAction.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1EventAction.cc.o
+.PHONY : src/B1EventAction.cc.o
 
-src/BF3DetectorConstruction.i: src/BF3DetectorConstruction.cc.i
+src/B1EventAction.i: src/B1EventAction.cc.i
 
-.PHONY : src/BF3DetectorConstruction.i
+.PHONY : src/B1EventAction.i
 
 # target to preprocess a source file
-src/BF3DetectorConstruction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/BF3DetectorConstruction.cc.i
-.PHONY : src/BF3DetectorConstruction.cc.i
+src/B1EventAction.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1EventAction.cc.i
+.PHONY : src/B1EventAction.cc.i
 
-src/BF3DetectorConstruction.s: src/BF3DetectorConstruction.cc.s
+src/B1EventAction.s: src/B1EventAction.cc.s
 
-.PHONY : src/BF3DetectorConstruction.s
+.PHONY : src/B1EventAction.s
 
 # target to generate assembly for a file
-src/BF3DetectorConstruction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/BF3DetectorConstruction.cc.s
-.PHONY : src/BF3DetectorConstruction.cc.s
+src/B1EventAction.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1EventAction.cc.s
+.PHONY : src/B1EventAction.cc.s
 
-src/HistogramsAnalysisManager.o: src/HistogramsAnalysisManager.cc.o
+src/B1PrimaryGeneratorAction.o: src/B1PrimaryGeneratorAction.cc.o
 
-.PHONY : src/HistogramsAnalysisManager.o
+.PHONY : src/B1PrimaryGeneratorAction.o
 
 # target to build an object file
-src/HistogramsAnalysisManager.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/HistogramsAnalysisManager.cc.o
-.PHONY : src/HistogramsAnalysisManager.cc.o
+src/B1PrimaryGeneratorAction.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1PrimaryGeneratorAction.cc.o
+.PHONY : src/B1PrimaryGeneratorAction.cc.o
 
-src/HistogramsAnalysisManager.i: src/HistogramsAnalysisManager.cc.i
+src/B1PrimaryGeneratorAction.i: src/B1PrimaryGeneratorAction.cc.i
 
-.PHONY : src/HistogramsAnalysisManager.i
+.PHONY : src/B1PrimaryGeneratorAction.i
 
 # target to preprocess a source file
-src/HistogramsAnalysisManager.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/HistogramsAnalysisManager.cc.i
-.PHONY : src/HistogramsAnalysisManager.cc.i
+src/B1PrimaryGeneratorAction.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1PrimaryGeneratorAction.cc.i
+.PHONY : src/B1PrimaryGeneratorAction.cc.i
 
-src/HistogramsAnalysisManager.s: src/HistogramsAnalysisManager.cc.s
+src/B1PrimaryGeneratorAction.s: src/B1PrimaryGeneratorAction.cc.s
 
-.PHONY : src/HistogramsAnalysisManager.s
+.PHONY : src/B1PrimaryGeneratorAction.s
 
 # target to generate assembly for a file
-src/HistogramsAnalysisManager.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/HistogramsAnalysisManager.cc.s
-.PHONY : src/HistogramsAnalysisManager.cc.s
+src/B1PrimaryGeneratorAction.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1PrimaryGeneratorAction.cc.s
+.PHONY : src/B1PrimaryGeneratorAction.cc.s
 
-src/NeutronActionInitialization.o: src/NeutronActionInitialization.cc.o
+src/B1RunAction.o: src/B1RunAction.cc.o
 
-.PHONY : src/NeutronActionInitialization.o
+.PHONY : src/B1RunAction.o
 
 # target to build an object file
-src/NeutronActionInitialization.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronActionInitialization.cc.o
-.PHONY : src/NeutronActionInitialization.cc.o
+src/B1RunAction.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1RunAction.cc.o
+.PHONY : src/B1RunAction.cc.o
 
-src/NeutronActionInitialization.i: src/NeutronActionInitialization.cc.i
+src/B1RunAction.i: src/B1RunAction.cc.i
 
-.PHONY : src/NeutronActionInitialization.i
+.PHONY : src/B1RunAction.i
 
 # target to preprocess a source file
-src/NeutronActionInitialization.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronActionInitialization.cc.i
-.PHONY : src/NeutronActionInitialization.cc.i
+src/B1RunAction.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1RunAction.cc.i
+.PHONY : src/B1RunAction.cc.i
 
-src/NeutronActionInitialization.s: src/NeutronActionInitialization.cc.s
+src/B1RunAction.s: src/B1RunAction.cc.s
 
-.PHONY : src/NeutronActionInitialization.s
+.PHONY : src/B1RunAction.s
 
 # target to generate assembly for a file
-src/NeutronActionInitialization.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronActionInitialization.cc.s
-.PHONY : src/NeutronActionInitialization.cc.s
+src/B1RunAction.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1RunAction.cc.s
+.PHONY : src/B1RunAction.cc.s
 
-src/NeutronPrimaryGeneratorAction.o: src/NeutronPrimaryGeneratorAction.cc.o
+src/B1SteppingAction.o: src/B1SteppingAction.cc.o
 
-.PHONY : src/NeutronPrimaryGeneratorAction.o
+.PHONY : src/B1SteppingAction.o
 
 # target to build an object file
-src/NeutronPrimaryGeneratorAction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronPrimaryGeneratorAction.cc.o
-.PHONY : src/NeutronPrimaryGeneratorAction.cc.o
+src/B1SteppingAction.cc.o:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1SteppingAction.cc.o
+.PHONY : src/B1SteppingAction.cc.o
 
-src/NeutronPrimaryGeneratorAction.i: src/NeutronPrimaryGeneratorAction.cc.i
+src/B1SteppingAction.i: src/B1SteppingAction.cc.i
 
-.PHONY : src/NeutronPrimaryGeneratorAction.i
-
-# target to preprocess a source file
-src/NeutronPrimaryGeneratorAction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronPrimaryGeneratorAction.cc.i
-.PHONY : src/NeutronPrimaryGeneratorAction.cc.i
-
-src/NeutronPrimaryGeneratorAction.s: src/NeutronPrimaryGeneratorAction.cc.s
-
-.PHONY : src/NeutronPrimaryGeneratorAction.s
-
-# target to generate assembly for a file
-src/NeutronPrimaryGeneratorAction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronPrimaryGeneratorAction.cc.s
-.PHONY : src/NeutronPrimaryGeneratorAction.cc.s
-
-src/NeutronRunAction.o: src/NeutronRunAction.cc.o
-
-.PHONY : src/NeutronRunAction.o
-
-# target to build an object file
-src/NeutronRunAction.cc.o:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronRunAction.cc.o
-.PHONY : src/NeutronRunAction.cc.o
-
-src/NeutronRunAction.i: src/NeutronRunAction.cc.i
-
-.PHONY : src/NeutronRunAction.i
+.PHONY : src/B1SteppingAction.i
 
 # target to preprocess a source file
-src/NeutronRunAction.cc.i:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronRunAction.cc.i
-.PHONY : src/NeutronRunAction.cc.i
+src/B1SteppingAction.cc.i:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1SteppingAction.cc.i
+.PHONY : src/B1SteppingAction.cc.i
 
-src/NeutronRunAction.s: src/NeutronRunAction.cc.s
+src/B1SteppingAction.s: src/B1SteppingAction.cc.s
 
-.PHONY : src/NeutronRunAction.s
+.PHONY : src/B1SteppingAction.s
 
 # target to generate assembly for a file
-src/NeutronRunAction.cc.s:
-	$(MAKE) -f CMakeFiles/neutron_detection.dir/build.make CMakeFiles/neutron_detection.dir/src/NeutronRunAction.cc.s
-.PHONY : src/NeutronRunAction.cc.s
+src/B1SteppingAction.cc.s:
+	$(MAKE) -f CMakeFiles/exampleB1.dir/build.make CMakeFiles/exampleB1.dir/src/B1SteppingAction.cc.s
+.PHONY : src/B1SteppingAction.cc.s
 
 # Help Target
 help:
@@ -431,41 +377,35 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... NEUTRON_DETECTION"
+	@echo "... install/strip"
+	@echo "... B1"
+	@echo "... install"
+	@echo "... exampleB1"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... list_install_components"
-	@echo "... neutron_detection"
-	@echo "... install"
-	@echo "... neutron_detection.o"
-	@echo "... neutron_detection.i"
-	@echo "... neutron_detection.s"
-	@echo "... src/3HeDetectorConstruction.o"
-	@echo "... src/3HeDetectorConstruction.i"
-	@echo "... src/3HeDetectorConstruction.s"
-	@echo "... src/3HeWorldConstruction.o"
-	@echo "... src/3HeWorldConstruction.i"
-	@echo "... src/3HeWorldConstruction.s"
-	@echo "... src/4HeDetectorConstruction.o"
-	@echo "... src/4HeDetectorConstruction.i"
-	@echo "... src/4HeDetectorConstruction.s"
-	@echo "... src/BF3DetectorConstruction.o"
-	@echo "... src/BF3DetectorConstruction.i"
-	@echo "... src/BF3DetectorConstruction.s"
-	@echo "... src/HistogramsAnalysisManager.o"
-	@echo "... src/HistogramsAnalysisManager.i"
-	@echo "... src/HistogramsAnalysisManager.s"
-	@echo "... src/NeutronActionInitialization.o"
-	@echo "... src/NeutronActionInitialization.i"
-	@echo "... src/NeutronActionInitialization.s"
-	@echo "... src/NeutronPrimaryGeneratorAction.o"
-	@echo "... src/NeutronPrimaryGeneratorAction.i"
-	@echo "... src/NeutronPrimaryGeneratorAction.s"
-	@echo "... src/NeutronRunAction.o"
-	@echo "... src/NeutronRunAction.i"
-	@echo "... src/NeutronRunAction.s"
+	@echo "... exampleB1.o"
+	@echo "... exampleB1.i"
+	@echo "... exampleB1.s"
+	@echo "... src/B1ActionInitialization.o"
+	@echo "... src/B1ActionInitialization.i"
+	@echo "... src/B1ActionInitialization.s"
+	@echo "... src/B1DetectorConstruction.o"
+	@echo "... src/B1DetectorConstruction.i"
+	@echo "... src/B1DetectorConstruction.s"
+	@echo "... src/B1EventAction.o"
+	@echo "... src/B1EventAction.i"
+	@echo "... src/B1EventAction.s"
+	@echo "... src/B1PrimaryGeneratorAction.o"
+	@echo "... src/B1PrimaryGeneratorAction.i"
+	@echo "... src/B1PrimaryGeneratorAction.s"
+	@echo "... src/B1RunAction.o"
+	@echo "... src/B1RunAction.i"
+	@echo "... src/B1RunAction.s"
+	@echo "... src/B1SteppingAction.o"
+	@echo "... src/B1SteppingAction.i"
+	@echo "... src/B1SteppingAction.s"
 .PHONY : help
 
 
