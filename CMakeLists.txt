@@ -2,7 +2,7 @@
 #----------------------------------------------------------------------------
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(neutron_detection_simulation)
+project(neutron_propagation_simulation)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g -rdynamic")
 
 #GTK setup stuff
@@ -41,8 +41,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(neutron_detection neutron_detection.cc ${sources} ${headers})
-target_link_libraries(neutron_detection ${Geant4_LIBRARIES} ${GTK_LIBRARIES})
+add_executable(neutron_propagation neutron_propagation.cc ${sources} ${headers})
+target_link_libraries(neutron_propagation ${Geant4_LIBRARIES} ${GTK_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -69,11 +69,11 @@ endforeach()
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(NEUTRON_DETECTION DEPENDS neutron_detection)
+add_custom_target(NEUTRON_PROPAGATION DEPENDS neutron_propagation)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX/
 #
-install(TARGETS neutron_detection DESTINATION bin)
+install(TARGETS neutron_propagation DESTINATION bin)
 
 

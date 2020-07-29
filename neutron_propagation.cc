@@ -29,6 +29,7 @@
 #include "G4HadronElasticPhysicsLEND.hh"
 #include "G4HadronPhysicsShieldingLEND.hh"
 #include "GTKInput.hh"
+#include "GTKOutput.hh"
 
 #include <thread>
 #include <chrono>
@@ -46,6 +47,7 @@ void getInput();
 int main(int argc, char **argv)
 {
 	create_data_entry_window();
+
 	//	getInput();
 	
 	// initialize the UI executive, which keeps our GUI session running
@@ -105,7 +107,7 @@ int main(int argc, char **argv)
 	delete runManager;
 	
 	// create the gtk window we use to output our results
-	//create_result_window();
+	create_output_window();
 	return 0;
 }
 

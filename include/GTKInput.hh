@@ -12,7 +12,7 @@ enum Detector {
 
 class InputValues {
 public:
-	std::string world_material = "G4_AIR";
+	std::string world_material;
 	int num_events = 100;
 	long double neutron_energy = 0.025;
         enum Detector detector_material;
@@ -20,10 +20,14 @@ public:
 
 class OutputValues {
 public:
-	long double energy_deposition;
-	long long number_of_neutrons_entered_detector;
-	long long initial_events;
-	long double initial_neutron_energy;	
+	long double edep_target;
+	long double edep_world = 0.0;
+	long long nparticle_target = 0;
+	long long nneutron_target = 0;
+	std::string world_material;
+	std::string target_material;
+	long long nevent_initial = 0;
+	long double eneutron_initial = 0;
 };
 
 struct GTKBoxesContainer {
