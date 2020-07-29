@@ -1,3 +1,10 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file 3HeWorldConstruction.cc
+ * @brief helium-3 world envelope construction file. 
+ */
+
 #include "3HeWorldConstruction.hh"
 
 #include "G4RunManager.hh"

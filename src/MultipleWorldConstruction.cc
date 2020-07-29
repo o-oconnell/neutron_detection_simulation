@@ -2,7 +2,9 @@
  * @author Oisin O'Connell
  * @file MultipleWorldConstruction.cc
  * @date 7/20/20
- * @brief detector action initialization file for the menu-based material worlds
+ * @brief multiple world construction header file, when used allows us to
+ * choose the world based on the input that we receive from the getInput
+ * function in main, but by default we use a GTK window instead.
  */
 
 #include "MultipleWorldConstruction.hh"

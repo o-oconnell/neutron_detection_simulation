@@ -1,3 +1,12 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file HistogramsAnalysisManager.hh
+ * @brief Analysis manager header file, optionally allows us to place 
+ * commands within our code that add to a histogram based on an event,
+ * a step, or something else.
+ */
+
 #ifndef HISTOGRAMS_ANALYSIS_MANAGER_H
 #define HISTOGRAMS_ANALYSIS_MANAGER_H
 

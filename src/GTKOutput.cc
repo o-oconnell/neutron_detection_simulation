@@ -1,10 +1,21 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file GTKOutput.cc
+ * @brief GTK output file, collects the results from the 
+ * OutputValues struct that is forward declared in the GTKInput header
+ * file and displays them as the output.
+ */
+
 #include "GTKInput.hh"
 #include "GTKOutput.hh"
 #include <sstream>
 #include <iomanip>
 
-void close_clicked(GtkWidget *button, struct WinContainer* wc);
-
+/**
+ * @brief creates the output window that contains the energy deposition
+ * and other statistics after a simulation has run.
+ */
 void create_output_window()
 {
 	GtkWidget *win;
@@ -55,7 +66,7 @@ void create_output_window()
 	std::ostringstream eneutron_str;
 	eneutron_str << results->output->eneutron_initial;
 	
-	eneutron_initial = gtk_label_new((std::string("Initial neutron energies: ") + eneutron_str.str()).c_str());
+	eneutron_initial = gtk_label_new((std::string("Initial neutron energies: ") + eneutron_str.str() + " keV").c_str());
 	gtk_label_set_xalign(GTK_LABEL(eneutron_initial), 0.0f);
 	gtk_box_pack_start(GTK_BOX(inner_box), eneutron_initial, FALSE, FALSE, 0);
 	 
@@ -67,7 +78,9 @@ void create_output_window()
 	// create the close button
 	close_button = gtk_button_new_with_label("Close");
 	gtk_box_pack_start(GTK_BOX(inner_box), close_button, TRUE, TRUE, 10);
-	
+
+	// place the window in a pointer to a struct so we can pass it as
+	// generic to the callback function
 	struct WinContainer *wc =
 		(struct WinContainer*)malloc(sizeof(struct WinContainer));
 	wc->window = win;
@@ -82,10 +95,13 @@ void create_output_window()
  	gtk_container_add(GTK_CONTAINER (win), outer_box);
 	gtk_widget_show_all(win);
 	gtk_main();
+	free(wc);
 }
 
 /**
- * @brief closes the window when the close button is clicked
+ * @brief callback that closes the window when the close button is clicked
+ * @param button the button widget
+ * @param wc a struct containing the window that displays the results
  */
 void close_clicked(GtkWidget *button, struct WinContainer* wc)
 {

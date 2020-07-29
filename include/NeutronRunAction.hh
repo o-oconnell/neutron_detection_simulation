@@ -1,3 +1,12 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file NeutronRunAction.hh
+ * @brief Run user action header file, allows us to define what should
+ * occur before and after a run. Currently being used to open and close
+ * the histogram if the user turns it on.
+ */
+
 #ifndef NEUTRON_RUN_ACTION_H
 #define NEUTRON_RUN_ACTION_H
 

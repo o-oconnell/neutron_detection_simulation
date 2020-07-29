@@ -1,8 +1,11 @@
 /**
  * @author Oisin O'Connell
- * @file NeutronActionInitialization.hh
+ * @file NeutronActionInitialization.cc
  * @date 7/20/20
- * @brief Action initialization file, where we add our user actions
+ * @brief neutron action initialization header file, where we initialize
+ * user actions such as defining the behavior for events and runs. Currently
+ * we are only defining user actions for the primary generator action and the
+ * run action.
  */
 
 #include "NeutronActionInitialization.hh"

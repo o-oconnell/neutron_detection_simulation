@@ -1,3 +1,11 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file 3HeDetectorConstruction.cc
+ * @brief helium-3 detector construction file. Air envelope with 3He
+ * container.
+ */
+
 #include "3HeDetectorConstruction.hh"
 #include "CounterSD.hh"
 

@@ -1,3 +1,13 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file GTKInput.cc
+ * @brief GTK input file, allows user to input the material for the 
+ * neutrons to propagate through and collects the user input in a struct
+ * that is used by the detector construction and the primary generator action
+ * to create a customized simulation.
+ */
+
 #include "GTKInput.hh"
 
 std::vector<std::string> detector_materials;

@@ -1,3 +1,11 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file 4HeDetectorConstruction.cc
+ * @brief helium-4 container in an air world envelope detector construction 
+ * file
+ */
+
 #include "4HeDetectorConstruction.hh"
 
 #include "G4RunManager.hh"

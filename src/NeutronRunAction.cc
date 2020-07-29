@@ -1,17 +1,11 @@
-
-
-
-// passed to the event manager, this file specifies what occurs
-// at the beginning and end of a run and creates the analysis
-// manager that allows us to graph our results.
-
-// passed the primary generator action which is a container for our
-// neutron gun, the constructor initializes the local primary generator
-// action to point to the already initialized primary generator action
-// (in NeutronActionInitialization.cc) which allows us to set the
-// primary particles for the run to the primary particle(s) (neutrons)
-// we defined in the PrimaryGeneratorAction.cc file at the beginning of the
-// run, using BeginOfRunAction()
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file NeutronRunAction.cc
+ * @brief Run user action file, allows us to define what should
+ * occur before and after a run. Currently being used to open and close
+ * the histogram if the user turns it on.
+ */
 
 #include "NeutronRunAction.hh"
 #include "HistogramsAnalysisManager.hh"

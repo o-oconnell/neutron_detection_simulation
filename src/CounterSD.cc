@@ -1,3 +1,12 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file CounterSD.cc
+ * @brief sensitive detector definition file. We attach a sensitive
+ * detector to a logical volume in order to obtain energy deposition and other
+ * statistics for the volume.
+ */
+
 #include "CounterSD.hh"
 #include "GTKInput.hh"
 

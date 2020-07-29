@@ -1,9 +1,20 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/29/2020
+ * @file GTKInput.hh
+ * @brief GTK input header file, allows user to input the material for the 
+ * neutrons to propagate through and collects the user input in a struct
+ * that is used by the detector construction and the primary generator action
+ * to create a customized simulation.
+ */
+
 #ifndef GTK_INPUT_H 
 #define GTK_INPUT_H 
 
 #include <gtk/gtk.h>
 #include <iostream>
 #include <vector>
+
 void create_data_entry_window();
 
 enum Detector {

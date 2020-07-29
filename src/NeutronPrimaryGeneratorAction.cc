@@ -3,7 +3,7 @@
  * @file NeutronPrimaryGeneratorAction.cc
  * @date 7/20/20
  * @brief constructs the particle gun and initializes the particle generation
- * when used as a user acton in the NeutronActionInitialization class
+ * when used as a user action in the NeutronActionInitialization class
  */
 
 #include "NeutronPrimaryGeneratorAction.hh"

@@ -1,3 +1,10 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file BF3DetectorConstruction.cc
+ * @brief boron trifluoride container in a modifiable world envelope detector
+ * construction file
+ */
 #include "BF3DetectorConstruction.hh"
 #include "CounterSD.hh"
 #include "GTKInput.hh"

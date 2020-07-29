@@ -2,8 +2,9 @@
  * @author Oisin O'Connell
  * @file MultipleWorldConstruction.hh
  * @date 7/20/20
- * @brief multiple world construction header file, construction
- * for worlds that are menu-based
+ * @brief multiple world construction header file, when used allows us to
+ * choose the world based on the input that we receive from the getInput
+ * function in main, but by default we use a GTK window instead.
  */
 
 #ifndef MULTIPLE_WORLD_CONSTRUCTION_H

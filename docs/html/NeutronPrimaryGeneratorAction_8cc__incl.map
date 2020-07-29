@@ -1,0 +1,4 @@
+<map id="src/NeutronPrimaryGeneratorAction.cc" name="src/NeutronPrimaryGeneratorAction.cc">
+<area shape="rect" id="node2" href="$NeutronPrimaryGeneratorAction_8hh.html" title="primary generator action, where we create our thermal neutrons. We pass an instance of this derived c..." alt="" coords="151,95,376,121"/>
+<area shape="rect" id="node5" href="$GTKInput_8hh.html" title="GTK input header file, allows user to input the material for the neutrons to propagate through and co..." alt="" coords="450,95,546,121"/>
+</map>

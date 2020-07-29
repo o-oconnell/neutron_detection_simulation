@@ -1,3 +1,10 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file CounterSD.hh
+ * @brief sensitive detector definition header file.
+ */
+
 #ifndef COUNTER_SD_H
 #define COUNTER_SD_H
 

@@ -1,3 +1,10 @@
+/**
+ * @author Oisin O'Connell
+ * @date 7/28/2020
+ * @file 4HeDetectorConstruction.hh
+ * @brief helium-4 container in an air world envelope detector construction 
+ * header file
+ */
 
 #ifndef _4HE_DETECTOR_CONSTRUCTION_H
 #define _4HE_DETECTOR_CONSTRUCTION_H
