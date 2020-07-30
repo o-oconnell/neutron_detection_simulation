@@ -17,8 +17,11 @@
 
 void create_data_entry_window();
 
-enum Detector {
-
+enum class Detector {
+	       HE3,
+	       BF3,
+	       HE4,
+	       LI6,
 };
 
 class InputValues {
@@ -36,7 +39,7 @@ public:
 	long long nparticle_target = 0;
 	long long nneutron_target = 0;
 	std::string world_material;
-	std::string target_material;
+	enum Detector detector_material;
 	long long nevent_initial = 0;
 	long double eneutron_initial = 0;
 };

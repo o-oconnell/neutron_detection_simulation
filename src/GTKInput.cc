@@ -31,9 +31,15 @@ void num_events_insert_event(GtkEditable *events,
 			     gint *pos);
 
 void submit_clicked(GtkWidget *button, struct GTKBoxesContainer *multi_arg);
+void he3_clicked(GtkWidget *button, GtkWidget *label);
+void BF3_clicked(GtkWidget *button, GtkWidget *label);
+void he4_clicked(GtkWidget *button, GtkWidget *label);
 
 void create_data_entry_window()
 {
+	results->input = input_values;
+	results->output = output_values;
+
 	GtkWidget *win;
 	GtkWidget *outer_box, *data_entry_box;
 	GtkWidget *title_description, *submit;
@@ -108,6 +114,50 @@ void create_data_entry_window()
 	
 	g_signal_connect(G_OBJECT(initial_events_entry), "insert-text",
 			 G_CALLBACK(num_events_insert_event), NULL);
+
+	// create the list of detectors
+	// GtkTreeIter iter;
+	// GtkListStore *detector_list = gtk_list_store_new(1, G_TYPE_STRING);
+
+	// gtk_list_store_append(detector_list, &iter);
+	// gtk_list_store_set(detector_list, &iter, 0, "Helium-3", -1);
+
+	
+	// GtkWidget *drop_down = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(detector_list));
+	// //	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(
+	// gtk_box_pack_start(GTK_BOX(data_entry_box), drop_down, TRUE, TRUE, 10);
+	GtkWidget *detector_buttons
+		= gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+
+	GtkWidget *detector_material =
+		gtk_label_new("Current detector material: Helium-3.");
+
+	results->output->detector_material = Detector::HE3;
+	
+	GtkWidget *he3 = gtk_button_new_with_label ("Helium-3");
+	GtkWidget *BF3 = gtk_button_new_with_label ("Boron-10 Trifluoride");
+	GtkWidget *he4 = gtk_button_new_with_label ("Helium-4");
+
+	gtk_box_pack_start(GTK_BOX(detector_buttons), detector_material, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(detector_buttons), he3, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(detector_buttons), BF3, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(detector_buttons), he4, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(data_entry_box), detector_buttons, TRUE, TRUE, 10);
+
+	// connect the callbacks for the detector selection
+	g_signal_connect(G_OBJECT(he3), "clicked",
+			 G_CALLBACK(he3_clicked),
+			 detector_material);
+
+	// connect the callbacks for the detector selection
+	g_signal_connect(G_OBJECT(BF3), "clicked",
+			 G_CALLBACK(BF3_clicked),
+			 detector_material);
+	
+	// connect the callbacks for the detector selection
+	g_signal_connect(G_OBJECT(he4), "clicked",
+			 G_CALLBACK(he4_clicked),
+			 detector_material);
 	
 	// create the submit button
 	submit = gtk_button_new_with_label("Submit");
@@ -120,8 +170,6 @@ void create_data_entry_window()
 	results->initial_events = initial_events_entry;
 	results->neutron_energy = neutron_energy_entry;
 	results->window = win;
-	results->input = input_values;
-	results->output = output_values;
 	
 	// connect the callback for closing the window
 	// and submitting the values
@@ -134,6 +182,24 @@ void create_data_entry_window()
 	gtk_main();
 
 }
+
+void he3_clicked(GtkWidget *button, GtkWidget *label)
+{
+	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Helium-3.");
+	results->output->detector_material = Detector::HE3;
+}
+
+void BF3_clicked(GtkWidget *button, GtkWidget *label)
+{
+	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Boron-10 Trifluoride.");
+	results->output->detector_material = Detector::BF3;
+}
+void he4_clicked(GtkWidget *button, GtkWidget *label)
+{
+	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Helium-4.");
+	results->output->detector_material = Detector::HE4;
+}
+
 
 /**
  * @brief passes the inputted args to our global struct

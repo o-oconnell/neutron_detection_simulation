@@ -66,16 +66,29 @@ int main(int argc, char **argv)
 	G4RunManager* runManager = new G4RunManager;
 	
 	// detector
-	runManager->SetUserInitialization(new _4HeDetectorConstruction());
+	switch (results->output->detector_material) {
+	case (Detector::HE4):
+		runManager->SetUserInitialization(new _4HeDetectorConstruction());
+		break;
+	case(Detector::HE3):
+		runManager->SetUserInitialization(new _3HeDetectorConstruction());
+
+		break;
+	case(Detector::BF3):
+		runManager->SetUserInitialization(new BF3DetectorConstruction());
+		break;
+	default:
+		exit(1);
+	}
 
 	// physics list
 	G4VModularPhysicsList *physics_list =
 		new FTFP_BERT_HP;
 	
-	//	physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
+	// physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
 	// physics_list->RegisterPhysics(new G4HadronElasticPhysicsLEND(0));
 	// physics_list->RegisterPhysics(new G4HadronPhysicsShieldingLEND(0));
-	//	physics_list->RegisterPhysics(new G4ThermalNeutrons(0));
+	// physics_list->RegisterPhysics(new G4ThermalNeutrons(0));
 
 	physics_list->SetVerboseLevel(1);
 	

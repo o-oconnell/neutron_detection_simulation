@@ -48,17 +48,17 @@ void create_output_window()
 	gtk_box_pack_start(GTK_BOX(inner_box), edep_world, FALSE, FALSE, 0);
 	
 	GtkWidget *edep_detector = gtk_text_view_new();	
-        edep_detector = gtk_label_new ((std::string("Energy deposition in target material: ") + std::to_string(results->output->edep_target) + " MeV").c_str());
+        edep_detector = gtk_label_new ((std::string("Energy deposition in detector: ") + std::to_string(results->output->edep_target) + " MeV").c_str());
 	gtk_label_set_xalign(GTK_LABEL(edep_detector), 0.0f);
 	gtk_box_pack_start(GTK_BOX(inner_box), edep_detector, FALSE, FALSE, 0);
 
 	GtkWidget *nparticle_target = gtk_text_view_new();	
-	nparticle_target = gtk_label_new ((std::string("Number of particles impacted target material: ") + std::to_string(results->output->nparticle_target)).c_str());
+	nparticle_target = gtk_label_new ((std::string("Number of particles impacted detector: ") + std::to_string(results->output->nparticle_target)).c_str());
 	gtk_label_set_xalign(GTK_LABEL(nparticle_target), 0.0f);
 	gtk_box_pack_start(GTK_BOX(inner_box), nparticle_target, FALSE, FALSE, 0);
 	 
 	GtkWidget *nneutron_target = gtk_text_view_new();	
-	nneutron_target = gtk_label_new((std::string("Number of neutrons impacted target material: ") + std::to_string(results->output->nneutron_target)).c_str());
+	nneutron_target = gtk_label_new((std::string("Number of neutrons impacted detector: ") + std::to_string(results->output->nneutron_target)).c_str());
 	gtk_label_set_xalign(GTK_LABEL(nneutron_target), 0.0f);
 	gtk_box_pack_start(GTK_BOX(inner_box), nneutron_target, FALSE, FALSE, 0);
 	 
