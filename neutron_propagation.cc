@@ -66,12 +66,12 @@ int main(int argc, char **argv)
 	G4RunManager* runManager = new G4RunManager;
 	
 	// detector
-	runManager->SetUserInitialization(new BF3DetectorConstruction());
+	runManager->SetUserInitialization(new _4HeDetectorConstruction());
 
 	// physics list
 	G4VModularPhysicsList *physics_list =
 		new FTFP_BERT_HP;
-
+	
 	//	physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
 	// physics_list->RegisterPhysics(new G4HadronElasticPhysicsLEND(0));
 	// physics_list->RegisterPhysics(new G4HadronPhysicsShieldingLEND(0));

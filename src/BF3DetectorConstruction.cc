@@ -28,7 +28,7 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4NistManager *nist_mgr = G4NistManager::Instance();
 	
 	G4Material *world_material =
-		nist_mgr->FindOrBuildMaterial(results->input->world_material);
+		 nist_mgr->FindOrBuildMaterial(results->input->world_material);
 	
 	G4double world_hx = 4*m;
 	G4double world_hy = 4*m;
@@ -49,16 +49,92 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 							      0, // number of copies
 							      true); // check overlaps
 
+	G4Tubs *casing
+		= new G4Tubs("Stainless steel casing",
+			     200*cm, 201*cm, 3.9*m, 0, 360*deg);
+	
+	G4LogicalVolume *logic_casing
+		= new G4LogicalVolume(casing,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel casing");
+
+	G4VisAttributes *casing_attrs =
+		new G4VisAttributes(G4Colour(255., 255., 0.));
+	casing_attrs->SetForceSolid(true);
+	casing_attrs->SetForceWireframe(true);
+	logic_casing->SetVisAttributes(casing_attrs);
+
+	
+	G4RotationMatrix *casing_rot = new G4RotationMatrix();
+	casing_rot->rotateY(90.*deg);
+	new G4PVPlacement(casing_rot,
+			  G4ThreeVector(0, -30*cm, 0*cm),
+			  logic_casing,
+			  "Stainless steel casing",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  true); // check for overlaps
+
+
+	G4Tubs *endcap_right
+		= new G4Tubs("Right endcap",
+			     0*cm, 201*cm, 0.1*m, 0, 360*deg);
+	
+	G4LogicalVolume *logic_endcap_right
+		= new G4LogicalVolume(endcap_right,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel endcap_right");
+
+	G4VisAttributes *endcap_right_attrs =
+		new G4VisAttributes(G4Colour(100., 233., 255.));
+	endcap_right_attrs->SetForceSolid(true);
+	logic_endcap_right->SetVisAttributes(endcap_right_attrs);
+
+	G4RotationMatrix *endcap_right_rot = new G4RotationMatrix();
+	endcap_right_rot->rotateY(90.*deg);
+	new G4PVPlacement(endcap_right_rot,
+			  G4ThreeVector(-4*m, -30*cm, 0*cm),
+			  logic_endcap_right,
+			  "Stainless steel endcap right",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  true); // check for overlaps
+
+	G4Tubs *endcap_left
+		= new G4Tubs("Right endcap",
+			     0*cm, 201*cm, 0.1*m, 0, 360*deg);
+	
+	G4LogicalVolume *logic_endcap_left
+		= new G4LogicalVolume(endcap_left,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel endcap_left");
+
+	G4VisAttributes *endcap_left_attrs =
+		new G4VisAttributes(G4Colour(100., 233., 255.));
+	endcap_left_attrs->SetForceSolid(true);
+	logic_endcap_left->SetVisAttributes(endcap_left_attrs);
+
+	G4RotationMatrix *endcap_left_rot = new G4RotationMatrix();
+	endcap_left_rot->rotateY(90.*deg);
+	new G4PVPlacement(endcap_left_rot,
+			  G4ThreeVector(4*m, -30*cm, 0*cm),
+			  logic_endcap_left,
+			  "Stainless steel endcap left",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  true); // check for overlaps
+
 	G4Tubs* BF3_detector =
 		new G4Tubs("BF3tube", 0*cm, 200*cm, 4*m, 0, 360*deg);
-
 
 	G4double atomicMass=10.0129370*g/mole;
 	G4Isotope* b10 = new G4Isotope("b10", 2, 3, atomicMass);
 	G4Element* B10 = new G4Element("B10", "B10", 1);
 	B10->AddIsotope(b10,100.*perCent);
 	
-	//He3 gas
 	G4double    pressure = 5*bar,
 		temperature = 293*kelvin,
 		molar_constant = CLHEP::Avogadro*CLHEP::k_Boltzmann,
@@ -83,7 +159,7 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 			       temperature,
 			       pressure); 
 
-	BF3->AddElement(elBoron, 1); // one boron atom
+	BF3->AddElement(B10, 1); // one boron atom
 	BF3->AddElement(elFluorine, 3); // three fluorine atoms
 
 	G4LogicalVolume *logic_BF3_detector
@@ -112,7 +188,6 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 							      false,
 							      0,
 							      true); // check for overlaps
-	
 	return physical_world;
 }
 

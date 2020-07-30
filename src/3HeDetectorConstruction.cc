@@ -9,6 +9,7 @@
 #include "3HeDetectorConstruction.hh"
 #include "CounterSD.hh"
 
+#include "G4Tubs.hh"
 #include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
@@ -44,52 +45,96 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 							     false,
 							     0,
 							     true);
-	
-	G4double detector_hx = 3*m;
-	G4double detector_hy = 1*m;
-	G4double detector_hz = 1*m;
-	G4Box *_3He_detector = new G4Box("3HeDetector",
-					detector_hx,
-					detector_hy,
-					detector_hz);
-	
-	// // 3He and 4He definitions:
-	// G4Isotope *helium_3_iso =
-	// 	new G4Isotope("Helium-3",
-	// 		      2, // protons
-	// 		      3, // nucleons (protons + neutrons)
-	// 		      3.016*g/mole); // atomic mass
-	
-	// G4Element *helium_3_element =
-	// 	new G4Element("Helium-3",
-	// 		      "3He",
-	// 		      1); // number  of isotopes
-	
-	// helium_3_element->AddIsotope(helium_3_iso, 100.*perCent);
 
-	// // density obviously varies with temperature, so here we define
-	// // the temperature of our gas-filled chamber
-	// // and calculate the density of our material
+	G4Tubs *casing
+		= new G4Tubs("Stainless steel casing",
+			     200*cm, 201*cm, 3.9*m, 0, 360*deg);
 	
-	// // g/mol, m_sub_u molar constant
-	// G4double grams_per_mol = CLHEP::Avogadro*CLHEP::k_Boltzmann; 
+	G4LogicalVolume *logic_casing
+		= new G4LogicalVolume(casing,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel casing");
 
-	// // density calculation, pressure and
-	// // temperature taken from geant4 forum samples
-	// // as reasonable for a gas-filled
-	// // chamber filled with 3he in a water medium
-	// G4double helium_3_density =
-	// 	(3.016*g/mole * 1.51988*bar)/(293*kelvin*grams_per_mol);
+	G4VisAttributes *casing_attrs =
+		new G4VisAttributes(G4Colour(255., 255., 0.));
+	casing_attrs->SetForceSolid(true);
+	casing_attrs->SetForceWireframe(true);
+	logic_casing->SetVisAttributes(casing_attrs);
 
-	// G4State helium_gas_state = kStateGas;
-	// G4Material *helium_3_material
-	// 	= new G4Material("3He",
-	// 			 helium_3_density,
-	// 			 1, // number of components
-	// 			 helium_gas_state, // the state of the material (gas here)
-	// 			 293*kelvin, // temperature
-	// 			 1.51988*bar); // pressure
+	
+	G4RotationMatrix *casing_rot = new G4RotationMatrix();
+	casing_rot->rotateY(90.*deg);
+	new G4PVPlacement(casing_rot,
+			  G4ThreeVector(0, -30*cm, 0*cm),
+			  logic_casing,
+			  "Stainless steel casing",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  false ); // check for overlaps
 
+
+	G4Tubs *endcap_right
+		= new G4Tubs("Right endcap",
+			     0*cm, 201*cm, 0.1*m, 0, 360*deg);
+	
+	G4LogicalVolume *logic_endcap_right
+		= new G4LogicalVolume(endcap_right,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel endcap_right");
+
+	G4VisAttributes *endcap_right_attrs =
+		new G4VisAttributes(G4Colour(100., 233., 255.));
+	endcap_right_attrs->SetForceSolid(true);
+	logic_endcap_right->SetVisAttributes(endcap_right_attrs);
+
+	G4RotationMatrix *endcap_right_rot = new G4RotationMatrix();
+	endcap_right_rot->rotateY(90.*deg);
+	new G4PVPlacement(endcap_right_rot,
+			  G4ThreeVector(-4*m, -30*cm, 0*cm),
+			  logic_endcap_right,
+			  "Stainless steel endcap right",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  false); // check for overlaps
+
+	G4Tubs *endcap_left
+		= new G4Tubs("Right endcap",
+			     0*cm, 201*cm, 0.1*m, 0, 360*deg);
+	
+	G4LogicalVolume *logic_endcap_left
+		= new G4LogicalVolume(endcap_left,
+				      nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL"),
+				      "Stainless steel endcap_left");
+
+	G4VisAttributes *endcap_left_attrs =
+		new G4VisAttributes(G4Colour(100., 233., 255.));
+	endcap_left_attrs->SetForceSolid(true);
+	logic_endcap_left->SetVisAttributes(endcap_left_attrs);
+
+	G4RotationMatrix *endcap_left_rot = new G4RotationMatrix();
+	endcap_left_rot->rotateY(90.*deg);
+	new G4PVPlacement(endcap_left_rot,
+			  G4ThreeVector(4*m, -30*cm, 0*cm),
+			  logic_endcap_left,
+			  "Stainless steel endcap right",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  false); // check for overlaps
+	
+	// G4double detector_hx = 3*m;
+	// G4double detector_hy = 1*m;
+	// G4double detector_hz = 1*m;
+	// G4Box *_3He_detector = new G4Box("3HeDetector",
+	// 				detector_hx,
+	// 				detector_hy,
+	// 				detector_hz);
+	
+	G4Tubs* _3He_detector =
+		new G4Tubs("3Hetube", 0*cm, 200*cm, 4*m, 0, 360*deg);
+	
 	// from the geant4 forum: https://geant4-forum.web.cern.ch/t/helium-3-neutron-capture-cross-section-doesnt-seem-right/2544
 	//He3 element
 	G4double atomicMass=3.016*g/mole;
@@ -98,13 +143,12 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 	He3->AddIsotope(he3,100.*perCent);
 	
 	//He3 gas
-	G4double    pressure = 5*bar,
+	G4double pressure = 5*bar,
 		temperature = 293*kelvin,
 		molar_constant = CLHEP::Avogadro*CLHEP::k_Boltzmann,
 		density = (atomicMass*pressure)/(temperature*molar_constant);
 	G4Material* He3Gas = new G4Material("He3_gas", density,	1, kStateGas, temperature, pressure);
 	He3Gas->AddElement(He3, 100.*perCent);
-
 
 	G4LogicalVolume *logic_3He_detector
 		= new G4LogicalVolume(_3He_detector,
@@ -112,7 +156,8 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 				      "3HeDetector");
 
 	G4VisAttributes *helium_attrs =
-		new G4VisAttributes(G4Colour(255., 0., 0.));
+		new G4VisAttributes(G4Colour(0., 255., 0.));
+	helium_attrs->SetForceSolid(true);
 	logic_3He_detector->SetVisAttributes(helium_attrs);
 	
 	//add the sensitive detector to the logical volume
@@ -121,36 +166,14 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 	sd_mgr->AddNewDetector(sensitive);
 	logic_3He_detector->SetSensitiveDetector(sensitive);
 
-	G4double case_hx = 4*m;
-	G4double case_hy = 2*m;
-	G4double case_hz = 2*m;
-	G4Box *casing_box = new G4Box("Casing",
-				      case_hx,
-				      case_hy,
-				      case_hz);
 	
-	G4Material *casing_material
-		= nist_mgr->FindOrBuildMaterial("G4_STAINLESS-STEEL");
-	
-	G4LogicalVolume *logic_casing =
-		new G4LogicalVolume(casing_box,
-				    casing_material,
-				    "Casing");
-	
-	new G4PVPlacement(0,
-			  G4ThreeVector(0, 50*cm, 0*cm),
-			  logic_casing,
-			  "Casing",
-			  logical_world, // parent volume
-			  false, // multiple volumes
-			  0, // amount of multiple volumes if any
-			  true); // check for overlaps
-
-	new G4PVPlacement(0,
-			  G4ThreeVector(0, 50*cm, 0*cm),
+	G4RotationMatrix *parallel = new G4RotationMatrix();
+	parallel->rotateY(90.*deg);
+	new G4PVPlacement(parallel,
+			  G4ThreeVector(0, -30*cm, 0*cm),
 			  logic_3He_detector,
 			  "3HeDetector",
-			  logic_casing, // parent volume
+			  logical_world, // parent volume
 			  false, // multiple volumes
 			  0, // amount of multiple volumes if any
 			  true); // check for overlaps
