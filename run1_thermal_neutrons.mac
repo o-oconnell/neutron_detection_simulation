@@ -52,9 +52,9 @@
 # Name
 /vis/set/textColour green
 /vis/set/textLayout right
-/vis/scene/add/text2D 0.9 -.9 24 ! ! neutron_detection_simulation
+/vis/scene/add/text2D 0.9 -.9 24 ! ! neutron propagation simulation
 # or, if your system does not support right-adjustment
-#/vis/scene/add/text2D 0 -.9 24 ! ! neutron_detection_simulation
+#/vis/scene/add/text2D 0 -.9 24 ! ! neutron propagation simulation
 /vis/set/textLayout    # Revert to normal (left adjusted) layout
 /vis/set/textColour    # Revert to default text colour (blue)
 #

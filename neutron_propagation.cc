@@ -16,6 +16,7 @@
 #include "3HeWorldConstruction.hh"
 #include "BF3DetectorConstruction.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
+#include "BlankDetectorConstruction.hh"
 
 #include "G4ThermalNeutrons.hh"
 #include "G4VUserDetectorConstruction.hh"
@@ -24,6 +25,7 @@
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
 #include "QGSP_BERT_HP.hh"
+#include "FTFP_BERT_HP.hh"
 #include "QBBC.hh"
 #include "G4EmStandardPhysics.hh"
 #include "G4HadronElasticPhysicsLEND.hh"
@@ -64,16 +66,16 @@ int main(int argc, char **argv)
 	G4RunManager* runManager = new G4RunManager;
 	
 	// detector
-	runManager->SetUserInitialization(new BF3DetectorConstruction);
+	runManager->SetUserInitialization(new BF3DetectorConstruction());
 
 	// physics list
 	G4VModularPhysicsList *physics_list =
-		new QGSP_BERT_HP;
-	physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
+		new FTFP_BERT_HP;
 
+	//	physics_list->RegisterPhysics(new G4EmStandardPhysics(0));
 	// physics_list->RegisterPhysics(new G4HadronElasticPhysicsLEND(0));
 	// physics_list->RegisterPhysics(new G4HadronPhysicsShieldingLEND(0));
-	physics_list->RegisterPhysics(new G4ThermalNeutrons(0));
+	//	physics_list->RegisterPhysics(new G4ThermalNeutrons(0));
 
 	physics_list->SetVerboseLevel(1);
 	

@@ -41,32 +41,32 @@ G4Run* NeutronRunAction::GenerateRun()
 // functions set the primary particle and open/close the file
 void NeutronRunAction::BeginOfRunAction(const G4Run* run)
 {
-	G4ParticleDefinition* particle = fPrimaryGeneratorAction
-		->GetParticleGun()
-		->GetParticleDefinition();
+	// G4ParticleDefinition* particle = fPrimaryGeneratorAction
+	// 	->GetParticleGun()
+	// 	->GetParticleDefinition();
 	
-	G4double energy = fPrimaryGeneratorAction
-		->GetParticleGun()
-		->GetParticleEnergy();
+	// G4double energy = fPrimaryGeneratorAction
+	// 	->GetParticleGun()
+	// 	->GetParticleEnergy();
 	
-	// open the file for our analysis manager,
-	// this file is written to with the neutron energy spectrum
-	// when we call the macro
-	// /analysis/h1/set bins min_energy max_energy
-	// but otherwise we do not write anything
-	G4AnalysisManager *analysis_mgr = G4AnalysisManager::Instance();
-	if (analysis_mgr->IsActive())
-		analysis_mgr->OpenFile();
+	// // open the file for our analysis manager,
+	// // this file is written to with the neutron energy spectrum
+	// // when we call the macro
+	// // /analysis/h1/set bins min_energy max_energy
+	// // but otherwise we do not write anything
+	// G4AnalysisManager *analysis_mgr = G4AnalysisManager::Instance();
+	// if (analysis_mgr->IsActive())
+	// 	analysis_mgr->OpenFile();
 }
 
 void NeutronRunAction::EndOfRunAction(const G4Run* run)
 {
-	G4AnalysisManager* analysis_mgr = G4AnalysisManager::Instance();
+	// G4AnalysisManager* analysis_mgr = G4AnalysisManager::Instance();
 
-	// scale the histogram by the number of events,
-	// since it will be proportional to the number of particles
-	analysis_mgr->ScaleH1(1, fRun->GetNumberOfEvent());
+	// // scale the histogram by the number of events,
+	// // since it will be proportional to the number of particles
+	// analysis_mgr->ScaleH1(1, fRun->GetNumberOfEvent());
 
-	analysis_mgr->Write();
-	analysis_mgr->CloseFile();
+	// analysis_mgr->Write();
+	// analysis_mgr->CloseFile();
 }

@@ -155,18 +155,18 @@ void submit_clicked(GtkWidget *button, struct GTKBoxesContainer *multi_arg)
 	const gchar *events = gtk_entry_buffer_get_text(initial_events_buf);
 	const gchar *neutron_energy = gtk_entry_buffer_get_text(neutron_energy_buf);
 	
-	std::cout << std::string(material) << '\n';
+
 	std::string tmp_str(material);
 	results->input->world_material = tmp_str;
 	
 	results->input->num_events = atoi(events);
 	results->input->neutron_energy = atof(neutron_energy);
 
+	results->output->edep_world = 0.0;
 	results->output->edep_target = 0.0;
 	results->output->nparticle_target = 0;
 	results->output->nneutron_target = 0;
 	results->output->nevent_initial = atoi(events);
-	std::cout << "neutron energy initial: " << atof(neutron_energy) << '\n';
 	results->output->eneutron_initial = atof(neutron_energy);
 
 	gtk_window_close(GTK_WINDOW(results->window));

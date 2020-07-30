@@ -9,6 +9,9 @@
 #include "CounterSD.hh"
 #include "GTKInput.hh"
 
+#include "G4RotationMatrix.hh"
+#include "G4Tubs.hh"
+#include "G4VisAttributes.hh"
 #include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
@@ -19,18 +22,10 @@
 
 BF3DetectorConstruction::BF3DetectorConstruction() :
 	G4VUserDetectorConstruction() {}
-	
 
 G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 {
 	G4NistManager *nist_mgr = G4NistManager::Instance();
-
-
-	//	G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_Galactic"); // vacuum 
-	
-	// G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_WATER");
-	std::cout <<"PRINTING WORLD MATERIAL:\n";
-	std::cout << results->input->world_material << '\n';
 	
 	G4Material *world_material =
 		nist_mgr->FindOrBuildMaterial(results->input->world_material);
@@ -44,6 +39,7 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4LogicalVolume *logical_world = new G4LogicalVolume(world, // geometry
 							     world_material, // material
 							     "world"); // name
+
 	G4VPhysicalVolume *physical_world = new G4PVPlacement(0, // rotation
 							      G4ThreeVector(), // translation relative to mother
 							      logical_world, // logical volume
@@ -52,14 +48,21 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 							      false, // bool if there are multiple
 							      0, // number of copies
 							      true); // check overlaps
-       	G4double detector_hx = 4.0*m;
-	G4double detector_hy = 2.0*m;
-	G4double detector_hz = 2.0*m;
-	G4Box *BF3_detector = new G4Box("BF3Detector",
-					detector_hx,
-					detector_hy,
-					detector_hz);
 
+	G4Tubs* BF3_detector =
+		new G4Tubs("BF3tube", 0*cm, 200*cm, 4*m, 0, 360*deg);
+
+
+	G4double atomicMass=10.0129370*g/mole;
+	G4Isotope* b10 = new G4Isotope("b10", 2, 3, atomicMass);
+	G4Element* B10 = new G4Element("B10", "B10", 1);
+	B10->AddIsotope(b10,100.*perCent);
+	
+	//He3 gas
+	G4double    pressure = 5*bar,
+		temperature = 293*kelvin,
+		molar_constant = CLHEP::Avogadro*CLHEP::k_Boltzmann,
+		density = (atomicMass*pressure)/(temperature*molar_constant);
 
 	// material definition for boron trifluoride, which we are
 	// using as our detection material
@@ -73,9 +76,12 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 
 	G4double bf3_density = 0.00276*g/cm3; // anhydrous gas density
 	G4Material *BF3 =
-		new G4Material("Boron Trifluoride",
+		new G4Material("Boron-10 Trifluoride",
 			       bf3_density,
-			       2); // the number of elements it contains
+			       2,
+			       kStateGas, //// the number of elements it contains
+			       temperature,
+			       pressure); 
 
 	BF3->AddElement(elBoron, 1); // one boron atom
 	BF3->AddElement(elFluorine, 3); // three fluorine atoms
@@ -90,19 +96,22 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4SDManager* sd_mgr = G4SDManager::GetSDMpointer();
 	sd_mgr->AddNewDetector(sensitive);
 	logic_BF3_detector->SetSensitiveDetector(sensitive);
-	
-	G4PVPlacement *detector_placement = new G4PVPlacement(0,
-							      G4ThreeVector(0, 50*cm, 0*cm),
+
+	G4VisAttributes *bf3_attrs =
+		new G4VisAttributes(G4Colour(255., 0., 0.));
+	bf3_attrs->SetForceSolid(true);
+	logic_BF3_detector->SetVisAttributes(bf3_attrs);
+
+	G4RotationMatrix *parallel = new G4RotationMatrix();
+	parallel->rotateY(90.*deg);
+	G4PVPlacement *detector_placement = new G4PVPlacement(parallel,
+							      G4ThreeVector(0, -30*cm, 0*cm),
 							      logic_BF3_detector,
 							      "BF3Detector",
 							      logical_world, // parent volume
 							      false,
 							      0,
 							      true); // check for overlaps
-							      
-
-
-	
 	
 	return physical_world;
 }

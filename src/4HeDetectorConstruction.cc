@@ -7,7 +7,9 @@
  */
 
 #include "4HeDetectorConstruction.hh"
+#include "CounterSD.hh"
 
+#include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -25,8 +27,8 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
         G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
 	
 	G4double world_hx = 4.0*m;
-	G4double world_hy = 1.0*m;
-	G4double world_hz = 2.0*m;
+	G4double world_hy = 4.0*m;
+	G4double world_hz = 4.0*m;
 
 	G4Box *world = new G4Box("World", world_hx, world_hy, world_hz);
 
@@ -40,51 +42,38 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 							     false,
 							     0,
 							     true);
-       	G4double detector_hx = 50.0*cm;
-	G4double detector_hy = 50.0*cm;
-	G4double detector_hz = 50.0*cm;
+       	G4double detector_hx = 3*m;
+	G4double detector_hy = 1*m;
+	G4double detector_hz = 1*m;
 	G4Box *_4He_detector = new G4Box("4HeDetector",
 					detector_hx,
 					detector_hy,
 					detector_hz);
-
-	// 4He definition
-	G4Isotope *helium_4_iso =
-		new G4Isotope("Helium-4",
-			      2, // protons
-			      4, // nucleons (protons + neutrons)
-			      4.002602*g/mole); // atomic mass
 	
-	G4Element *helium_4_element =
-		new G4Element("Helium-4",
-			      "4He",
-			      1); // number of isotopes
-	helium_4_element->AddIsotope(helium_4_iso, 100*perCent);
-
-	// density obviously varies with temperature, so here we define
-	// the temperature of our gas-filled chamber
-	// and calculate the density of our material
+	G4double atomicMass=4.002603*g/mole;
+	G4Isotope* he4 = new G4Isotope("he4", 2, 4, atomicMass);
+	G4Element* He4 = new G4Element("He4", "He4", 1);
+	He4->AddIsotope(he4,100.*perCent);
 	
-	// g/mol, m_sub_u molar constant
-	G4double grams_per_mol = CLHEP::Avogadro*CLHEP::k_Boltzmann; 
-
-	G4double helium_4_density =
-		(4.002602*g/mole * 1.51988*bar)/(293*kelvin*grams_per_mol);
-
-	G4State helium_gas_state = kStateGas;
-	G4Material *helium_4_material
-		= new G4Material("4He",
-				 helium_4_density,
-				 1, // number of components
-				 helium_gas_state, // the state of the material (gas here)
-				 293*kelvin, // temperature
-				 1.51988*bar); // pressure
+	G4double pressure = 5*bar,
+		temperature = 293*kelvin,
+		molar_constant = CLHEP::Avogadro*CLHEP::k_Boltzmann,
+		density = (atomicMass*pressure)/(temperature*molar_constant);
+	
+	G4Material* He4Gas = new G4Material("He4_gas", density,	1, kStateGas, temperature, pressure);
+	He4Gas->AddElement(He4, 100.*perCent);
 
 	G4LogicalVolume *logic_4He_detector
 		= new G4LogicalVolume(_4He_detector,
-				      helium_4_material,
+				      He4Gas,
 				      "4HeDetector");
 	
+	//add the sensitive detector to the logical volume
+	CounterSD* sensitive = new CounterSD("4He");
+	G4SDManager* sd_mgr = G4SDManager::GetSDMpointer();
+	sd_mgr->AddNewDetector(sensitive);
+	logic_4He_detector->SetSensitiveDetector(sensitive);
+
 	G4PVPlacement *detector_placement =
 		new G4PVPlacement(0,
 				  G4ThreeVector(0, 50*cm, 0*cm),				  logic_4He_detector,
@@ -94,7 +83,6 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 				  0,
 				  true); // check for overlaps
 
-	
 	return physical_world;
 }
 

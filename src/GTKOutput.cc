@@ -40,12 +40,17 @@ void create_output_window()
 	GtkWidget *output_title = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(output_title), "<b>Simulation results</b>");	
 	gtk_box_pack_start(GTK_BOX(inner_box), output_title, FALSE, FALSE, 5);
-	
+
 	// add the result list
-	GtkWidget *edep = gtk_text_view_new();	
-        edep = gtk_label_new ((std::string("Energy deposition in target material: ") + std::to_string(results->output->edep_target) + " MeV").c_str());
-	gtk_label_set_xalign(GTK_LABEL(edep), 0.0f);
-	gtk_box_pack_start(GTK_BOX(inner_box), edep, FALSE, FALSE, 0);
+	GtkWidget *edep_world = gtk_text_view_new();	
+        edep_world = gtk_label_new ((std::string("Total energy deposition in simulation: ") + std::to_string(results->output->edep_world) + " MeV").c_str());
+	gtk_label_set_xalign(GTK_LABEL(edep_world), 0.0f);
+	gtk_box_pack_start(GTK_BOX(inner_box), edep_world, FALSE, FALSE, 0);
+	
+	GtkWidget *edep_detector = gtk_text_view_new();	
+        edep_detector = gtk_label_new ((std::string("Energy deposition in target material: ") + std::to_string(results->output->edep_target) + " MeV").c_str());
+	gtk_label_set_xalign(GTK_LABEL(edep_detector), 0.0f);
+	gtk_box_pack_start(GTK_BOX(inner_box), edep_detector, FALSE, FALSE, 0);
 
 	GtkWidget *nparticle_target = gtk_text_view_new();	
 	nparticle_target = gtk_label_new ((std::string("Number of particles impacted target material: ") + std::to_string(results->output->nparticle_target)).c_str());

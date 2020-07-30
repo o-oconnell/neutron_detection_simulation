@@ -41,7 +41,7 @@ G4bool CounterSD::ProcessHits(G4Step *step, G4TouchableHistory *hist)
 		if (step->IsFirstStepInVolume()) 
 			results->output->nneutron_target++;
 		
-		analysis_mgr->FillH1(1, energy_deposit);
+		//		analysis_mgr->FillH1(1, energy_deposit);
 		//		G4cout<< "FOUND THE NEUTRON. DEPOSIT: " << energy_deposit << '\n';
 	}
 	

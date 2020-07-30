@@ -32,8 +32,6 @@ NeutronPrimaryGeneratorAction::NeutronPrimaryGeneratorAction() :
 	particle_gun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
 
 	// approximate standard thermal neutron energy
-	std::cout << "PARTICLE GUN ENERGY:\n";
-	std::cout << results->input->neutron_energy << '\n';
 	particle_gun->SetParticleEnergy(results->input->neutron_energy*eV);
 }
 
@@ -66,7 +64,6 @@ void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 	G4double y0 = environment_size_xy_axis * (G4UniformRand()-0.5) ;
 	G4double z0 = environment_size_xy_axis * -1 ;
 
-	std::cout << "INITIAL PARTICLE POSITION: " << x0 << " " << y0 << " " << z0 << '\n';
 	particle_gun->SetParticlePosition(G4ThreeVector(x0, y0, z0));
 	
 	particle_gun->GeneratePrimaryVertex(event);
