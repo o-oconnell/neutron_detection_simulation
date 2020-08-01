@@ -10,35 +10,19 @@
 
 #include "GTKInput.hh"
 
-std::vector<std::string> detector_materials;
+// externed in GTKInput.hh
 struct GTKBoxesContainer* results =
 	(GTKBoxesContainer*)malloc(sizeof(GTKBoxesContainer));
 
-InputValues *input_values =
-	(InputValues*)malloc(sizeof(InputValues));
-
-OutputValues *output_values =
-	(OutputValues*)malloc(sizeof(OutputValues));
-
-void neutron_energy_insert_event(GtkEditable *neutron_energy,
-				 const gchar *text,
-				 gint length,
-				 gint *pos);
-
-void num_events_insert_event(GtkEditable *events,
-			     const gchar *text,
-			     gint length,
-			     gint *pos);
-
-void submit_clicked(GtkWidget *button, struct GTKBoxesContainer *multi_arg);
-void he3_clicked(GtkWidget *button, GtkWidget *label);
-void BF3_clicked(GtkWidget *button, GtkWidget *label);
-void he4_clicked(GtkWidget *button, GtkWidget *label);
-
+/**
+ * @brief creates the window where the user
+ * can select the detector, number of initial neutrons,
+ * initial neutron energies, and world material
+ */
 void create_data_entry_window()
 {
-	results->input = input_values;
-	results->output = output_values;
+	results->input = (InputValues*)malloc(sizeof(InputValues));
+	results->output = (OutputValues*)malloc(sizeof(OutputValues));
 
 	GtkWidget *win;
 	GtkWidget *outer_box, *data_entry_box;
@@ -71,7 +55,6 @@ void create_data_entry_window()
 	title_description = gtk_label_new ("This program models neutron propagation through various materials and collision with a detector material\nusing Geant4. By default, thermal neutrons are collided with materials that have high nuclear cross-sections\nfor thermal neutrons. Use the first text box to enter a NIST-specified material for the world. Enter the energy\n(eV) of the incident neutrons using the second text box. Enter the number of initial events using the third\ntext box. Press the \"Submit\" button to run the simulation. ");
 	gtk_label_set_xalign(GTK_LABEL(title_description), 0.0f);
 	gtk_box_pack_start(GTK_BOX(data_entry_box), title_description, FALSE, FALSE, 0);
-
 
 	// add the data entry box to the outer box
 	gtk_box_pack_start(GTK_BOX(outer_box), data_entry_box, FALSE, FALSE, 10);
@@ -115,23 +98,14 @@ void create_data_entry_window()
 	g_signal_connect(G_OBJECT(initial_events_entry), "insert-text",
 			 G_CALLBACK(num_events_insert_event), NULL);
 
-	// create the list of detectors
-	// GtkTreeIter iter;
-	// GtkListStore *detector_list = gtk_list_store_new(1, G_TYPE_STRING);
-
-	// gtk_list_store_append(detector_list, &iter);
-	// gtk_list_store_set(detector_list, &iter, 0, "Helium-3", -1);
-
-	
-	// GtkWidget *drop_down = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(detector_list));
-	// //	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(
-	// gtk_box_pack_start(GTK_BOX(data_entry_box), drop_down, TRUE, TRUE, 10);
 	GtkWidget *detector_buttons
 		= gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
 
 	GtkWidget *detector_material =
 		gtk_label_new("Current detector material: Helium-3.");
 
+	// set the default value for our selection of detector
+	// in the struct
 	results->output->detector_material = Detector::HE3;
 	
 	GtkWidget *he3 = gtk_button_new_with_label ("Helium-3");
@@ -149,12 +123,10 @@ void create_data_entry_window()
 			 G_CALLBACK(he3_clicked),
 			 detector_material);
 
-	// connect the callbacks for the detector selection
 	g_signal_connect(G_OBJECT(BF3), "clicked",
 			 G_CALLBACK(BF3_clicked),
 			 detector_material);
 	
-	// connect the callbacks for the detector selection
 	g_signal_connect(G_OBJECT(he4), "clicked",
 			 G_CALLBACK(he4_clicked),
 			 detector_material);
@@ -183,23 +155,41 @@ void create_data_entry_window()
 
 }
 
+/**
+ * @brief callback for the click action
+ * on the he3 button widget, sets the detector in the results struct to he3
+ * @param button the button widget
+ * @param label the label beside the button indicating current material
+ */
 void he3_clicked(GtkWidget *button, GtkWidget *label)
 {
 	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Helium-3.");
 	results->output->detector_material = Detector::HE3;
 }
 
+/**
+ * @brief callback for the click action
+ * on the 10BF3 button widget, sets the detector in the results struct to 10BF3
+ * @param button the button widget
+ * @param label the label beside the button indicating current material
+ */
 void BF3_clicked(GtkWidget *button, GtkWidget *label)
 {
 	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Boron-10 Trifluoride.");
 	results->output->detector_material = Detector::BF3;
 }
+
+/**
+ * @brief callback for the click action
+ * on he4 button widget, sets the detector in the results struct to he4
+ * @param button the button widget
+ * @param label the label beside the button indicating current material
+ */
 void he4_clicked(GtkWidget *button, GtkWidget *label)
 {
 	gtk_label_set_text(GTK_LABEL(label), "Current detector material: Helium-4.");
 	results->output->detector_material = Detector::HE4;
 }
-
 
 /**
  * @brief passes the inputted args to our global struct
@@ -221,13 +211,16 @@ void submit_clicked(GtkWidget *button, struct GTKBoxesContainer *multi_arg)
 	const gchar *events = gtk_entry_buffer_get_text(initial_events_buf);
 	const gchar *neutron_energy = gtk_entry_buffer_get_text(neutron_energy_buf);
 	
-
+	// sets all of the InputValues struct's
+	// values except the detector material
+	// which is set manually by the callbacks
+	// to the detector material buttons
 	std::string tmp_str(material);
 	results->input->world_material = tmp_str;
-	
 	results->input->num_events = atoi(events);
 	results->input->neutron_energy = atof(neutron_energy);
 
+	// initialize all of the output values
 	results->output->edep_world = 0.0;
 	results->output->edep_target = 0.0;
 	results->output->nparticle_target = 0;
@@ -238,23 +231,13 @@ void submit_clicked(GtkWidget *button, struct GTKBoxesContainer *multi_arg)
 	gtk_window_close(GTK_WINDOW(results->window));
 }
 
-
-
-void create_result_labels(GtkWidget *outer_box,
-			  GtkWidget *result_box)
-{
-
-
-
-}
-
 /**
  * @brief prevents the entry of any non-numeric characters for the neutron 
  * energy
  * @param neutron_energy the text box
  * @param text the text that was added to the text box
  * @param length the length of the added text
- * @param pos the length of the added text
+ * @param pos the position of the added text
  */
 void neutron_energy_insert_event(GtkEditable *neutron_energy,
 				 const gchar *text,
@@ -278,7 +261,7 @@ void neutron_energy_insert_event(GtkEditable *neutron_energy,
  * @param events the text box
  * @param text the text that was added to the text box
  * @param length the length of the added text
- * @param pos the length of the added text
+ * @param pos the position of the added text
  */
 void num_events_insert_event(GtkEditable *events,
 				 const gchar *text,

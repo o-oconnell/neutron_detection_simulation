@@ -23,6 +23,9 @@
 BF3DetectorConstruction::BF3DetectorConstruction() :
 	G4VUserDetectorConstruction() {}
 
+BF3DetectorConstruction::~BF3DetectorConstruction()
+{ }
+
 G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 {
 	G4NistManager *nist_mgr = G4NistManager::Instance();

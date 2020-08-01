@@ -17,6 +17,8 @@ class G4LogicalVolume;
 class _4HeDetectorConstruction : public G4VUserDetectorConstruction {
 public:
 	_4HeDetectorConstruction();
+
+	virtual ~_4HeDetectorConstruction();
 	
 	virtual G4VPhysicalVolume *Construct();
 };

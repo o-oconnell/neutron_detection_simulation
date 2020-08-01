@@ -22,6 +22,9 @@
 _4HeDetectorConstruction::_4HeDetectorConstruction() :
 	G4VUserDetectorConstruction() {}
 
+_4HeDetectorConstruction::~_4HeDetectorConstruction()
+{ }
+
 G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 {
 	G4NistManager *nist_mgr = G4NistManager::Instance();

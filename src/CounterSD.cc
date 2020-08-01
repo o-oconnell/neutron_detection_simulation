@@ -20,13 +20,8 @@ G4bool CounterSD::ProcessHits(G4Step *step, G4TouchableHistory *hist)
 {
 	auto track = step->GetTrack();
 	
-	//	G4double energy_deposit = track->GetKineticEnergy();
-
 	G4double energy_deposit = step->GetPreStepPoint()->GetKineticEnergy()
 		- step->GetPostStepPoint()->GetKineticEnergy();
-
-		G4cout << "PRE STEP ENERGY (MeV): " << step->GetPreStepPoint()->GetKineticEnergy() << '\n';
-		G4cout << "POST STEP ENERGY: " << step->GetPostStepPoint()->GetKineticEnergy() << '\n';
 
 	if (step->IsFirstStepInVolume()) {
 		results->output->edep_target += energy_deposit;
@@ -40,9 +35,6 @@ G4bool CounterSD::ProcessHits(G4Step *step, G4TouchableHistory *hist)
 	if (particle_definition->GetParticleName() == "neutron") {
 		if (step->IsFirstStepInVolume()) 
 			results->output->nneutron_target++;
-		
-		//		analysis_mgr->FillH1(1, energy_deposit);
-		//		G4cout<< "FOUND THE NEUTRON. DEPOSIT: " << energy_deposit << '\n';
 	}
 	
 	return true;

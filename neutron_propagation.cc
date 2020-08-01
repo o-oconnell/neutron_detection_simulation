@@ -8,15 +8,11 @@
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 
-#include "MultipleWorldConstruction.hh"
-#include "global_materials.hh"
 #include "NeutronActionInitialization.hh"
 #include "4HeDetectorConstruction.hh"
 #include "3HeDetectorConstruction.hh"
-#include "3HeWorldConstruction.hh"
 #include "BF3DetectorConstruction.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
-#include "BlankDetectorConstruction.hh"
 
 #include "G4ThermalNeutrons.hh"
 #include "G4VUserDetectorConstruction.hh"
@@ -35,11 +31,6 @@
 
 #include <thread>
 #include <chrono>
-
-/**
- * @brief displays the menu and receives input.
- */
-void getInput();
 
 /**
  * @brief creates the user interface (batch), visualization manager (OpenGL,
@@ -124,39 +115,4 @@ int main(int argc, char **argv)
 	// create the gtk window we use to output our results
 	create_output_window();
 	return 0;
-}
-
-void getInput()
-{
-	std::cout << "Enter the propagation material:\n";
-	std::cout << "1. Space (G4galactic)\n";
-	std::cout << "2. Water\n";
-	std::cout << "3. Air\n";
-	std::cout << "4. Argon\n";
-	std::cout << "5. Helium\n";
-
-	int material = -1;
-	G4cin >> material;
-	
-	switch (material) {
-	case(1):
-		SPACE_SELECTED = 1;
-		break;
-	case(2):
-		WATER_SELECTED = 1;
-		break;
-	case(3):
-		AIR_SELECTED = 1;
-		break;
-	case(4):
-		ARGON_SELECTED = 1;
-		break;
-	case(5):
-		HELIUM_SELECTED = 1;
-		break;
-	default:
-		std::cout << "Unrecognized option. Exiting.\n";
-		exit(1);
-		break;
-	}
 }

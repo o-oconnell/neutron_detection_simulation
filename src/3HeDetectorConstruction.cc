@@ -23,10 +23,12 @@
 _3HeDetectorConstruction::_3HeDetectorConstruction() :
 	G4VUserDetectorConstruction() {}
 
+_3HeDetectorConstruction::~_3HeDetectorConstruction()
+{ }
+
 G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 {
 	G4NistManager *nist_mgr = G4NistManager::Instance();
-	
         G4Material *world_material = nist_mgr->FindOrBuildMaterial("G4_AIR");
 	
 	G4double world_hx = 4.0*m;
@@ -60,7 +62,6 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 	casing_attrs->SetForceSolid(true);
 	casing_attrs->SetForceWireframe(true);
 	logic_casing->SetVisAttributes(casing_attrs);
-
 	
 	G4RotationMatrix *casing_rot = new G4RotationMatrix();
 	casing_rot->rotateY(90.*deg);
@@ -72,8 +73,7 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 			  false,
 			  0,
 			  false ); // check for overlaps
-
-
+	
 	G4Tubs *endcap_right
 		= new G4Tubs("Right endcap",
 			     0*cm, 201*cm, 0.1*m, 0, 360*deg);
@@ -124,14 +124,6 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 			  0,
 			  false); // check for overlaps
 	
-	// G4double detector_hx = 3*m;
-	// G4double detector_hy = 1*m;
-	// G4double detector_hz = 1*m;
-	// G4Box *_3He_detector = new G4Box("3HeDetector",
-	// 				detector_hx,
-	// 				detector_hy,
-	// 				detector_hz);
-	
 	G4Tubs* _3He_detector =
 		new G4Tubs("3Hetube", 0*cm, 200*cm, 4*m, 0, 360*deg);
 	
@@ -165,7 +157,6 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 	G4SDManager* sd_mgr = G4SDManager::GetSDMpointer();
 	sd_mgr->AddNewDetector(sensitive);
 	logic_3He_detector->SetSensitiveDetector(sensitive);
-
 	
 	G4RotationMatrix *parallel = new G4RotationMatrix();
 	parallel->rotateY(90.*deg);

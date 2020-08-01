@@ -17,6 +17,8 @@ class G4LogicalVolume;
 class BF3DetectorConstruction : public G4VUserDetectorConstruction {
 public:
 	BF3DetectorConstruction();
+
+	virtual ~BF3DetectorConstruction();
 	
 	virtual G4VPhysicalVolume *Construct();
 };

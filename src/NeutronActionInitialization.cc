@@ -10,7 +10,6 @@
 
 #include "NeutronActionInitialization.hh"
 #include "NeutronPrimaryGeneratorAction.hh"
-#include "NeutronRunAction.hh"
 #include "NeutronSteppingAction.hh"
 
 NeutronActionInitialization::NeutronActionInitialization() :
@@ -28,6 +27,5 @@ void NeutronActionInitialization::Build() const
 {
 	NeutronPrimaryGeneratorAction* npga = new NeutronPrimaryGeneratorAction;
 	SetUserAction(npga);
-	SetUserAction(new NeutronRunAction(npga));
 	SetUserAction(new NeutronSteppingAction());
 }

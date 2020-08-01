@@ -22,8 +22,6 @@ public:
 	CounterSD(G4String id);
 	virtual void Initialize(G4HCofThisEvent *HCE);
 	virtual G4bool ProcessHits(G4Step *step, G4TouchableHistory *hist);
-
-	
 };
 	
 #endif
