@@ -125,16 +125,6 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 			  0,
 			  false); // check for overlaps
 
-
-	
-       	// G4double detector_hx = 3*m;
-	// G4double detector_hy = 1*m;
-	// G4double detector_hz = 1*m;
-	// G4Box *_4He_detector = new G4Box("4HeDetector",
-	// 				detector_hx,
-	// 				detector_hy,
-	// 				detector_hz);
-
 	G4Tubs* _4He_detector =
 		new G4Tubs("3Hetube", 0*cm, 200*cm, 4*m, 0, 360*deg);
 	
@@ -164,16 +154,15 @@ G4VPhysicalVolume *_4HeDetectorConstruction::Construct()
 
 	G4RotationMatrix *parallel = new G4RotationMatrix();
 	parallel->rotateY(90.*deg);
-	G4PVPlacement *detector_placement =
-		new G4PVPlacement(parallel,
-				  G4ThreeVector(0, -30*cm, 0*cm),
-				  logic_4He_detector,
-				  "4HeDetector",
-				  logical_world, // parent volume
-				  false,
-				  0,
-				  true); // check for overlaps
-
+	new G4PVPlacement(parallel,
+			  G4ThreeVector(0, -30*cm, 0*cm),
+			  logic_4He_detector,
+			  "4HeDetector",
+			  logical_world, // parent volume
+			  false,
+			  0,
+			  true); // check for overlaps
+	
 	return physical_world;
 }
 

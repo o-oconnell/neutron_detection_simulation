@@ -23,8 +23,9 @@ G4bool CounterSD::ProcessHits(G4Step *step, G4TouchableHistory *hist)
 	G4double energy_deposit = step->GetPreStepPoint()->GetKineticEnergy()
 		- step->GetPostStepPoint()->GetKineticEnergy();
 
+	results->output->edep_target += energy_deposit;
 	if (step->IsFirstStepInVolume()) {
-		results->output->edep_target += energy_deposit;
+
 		results->output->nparticle_target++;
 	}
 	
