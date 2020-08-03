@@ -3,7 +3,7 @@
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(neutron_propagation_simulation)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -O0 -g -rdynamic")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -O0 -g -rdynamic -Wno-unused-variable")
 
 #GTK setup stuff
 FIND_PACKAGE(PkgConfig REQUIRED)
@@ -62,6 +62,8 @@ foreach(_script ${NEUTRON_SCRIPTS})
      COPYONLY
      )
 endforeach()
+
+ADD_DEFINITIONS("-Wno-unused-variable -Wno-unused-parameter")
 
 #----------------------------------------------------------------------------
 # For internal Geant4 use - but has no effect if you build this
