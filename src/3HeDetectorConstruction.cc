@@ -47,7 +47,6 @@ G4VPhysicalVolume *_3HeDetectorConstruction::Construct()
 							     false,
 							     0,
 							     true);
-
 	G4Tubs *casing
 		= new G4Tubs("Stainless steel casing",
 			     200*cm, 201*cm, 3.9*m, 0, 360*deg);

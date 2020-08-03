@@ -41,14 +41,6 @@ NeutronPrimaryGeneratorAction::~NeutronPrimaryGeneratorAction()
 }
 
 /**
- * @brief used by the NeutronRunAction class to get the particle gun
- */
-G4ParticleGun* NeutronPrimaryGeneratorAction::GetParticleGun()
-{
-	return particle_gun;
-}
-
-/**
  * @brief called for the number of times we specify using /run/BeamOn
  */
 void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
