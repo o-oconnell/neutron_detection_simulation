@@ -42,15 +42,19 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 	G4LogicalVolume *logical_world = new G4LogicalVolume(world, // geometry
 							     world_material, // material
 							     "world"); // name
-
+	
+	G4bool check_overlaps_root = true;
+	G4bool check_overlaps_children = false;
+	G4bool has_copies = false;
+	G4int num_copies = 0;
 	G4VPhysicalVolume *physical_world = new G4PVPlacement(0, // rotation
 							      G4ThreeVector(), // translation relative to mother
 							      logical_world, // logical volume
 							      "world", // name
 							      0, // parent logical volume
-							      false, // bool if there are multiple
-							      0, // number of copies
-							      true); // check overlaps
+							      has_copies, // bool if there are multiple
+							      num_copies, // number of copies
+							      check_overlaps_root); // check overlaps
 
 	G4Tubs *casing
 		= new G4Tubs("Stainless steel casing",
@@ -75,9 +79,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 			  logic_casing,
 			  "Stainless steel casing",
 			  logical_world, // parent volume
-			  false,
-			  0,
-			  true); // check for overlaps
+			  has_copies,
+			  num_copies,
+			  check_overlaps_children); // check for overlaps
 
 
 	G4Tubs *endcap_right
@@ -101,9 +105,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 			  logic_endcap_right,
 			  "Stainless steel endcap right",
 			  logical_world, // parent volume
-			  false,
-			  0,
-			  true); // check for overlaps
+			  has_copies,
+			  num_copies,
+			  check_overlaps_children); // check for overlaps
 
 	G4Tubs *endcap_left
 		= new G4Tubs("Right endcap",
@@ -126,9 +130,9 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 			  logic_endcap_left,
 			  "Stainless steel endcap left",
 			  logical_world, // parent volume
-			  false,
-			  0,
-			  true); // check for overlaps
+			  has_copies,
+			  num_copies,
+			  check_overlaps_children); // check for overlaps
 
 	G4Tubs* BF3_detector =
 		new G4Tubs("BF3tube", 0*cm, 200*cm, 4*m, 0, 360*deg);
@@ -183,14 +187,15 @@ G4VPhysicalVolume *BF3DetectorConstruction::Construct()
 
 	G4RotationMatrix *parallel = new G4RotationMatrix();
 	parallel->rotateY(90.*deg);
-	G4PVPlacement *detector_placement = new G4PVPlacement(parallel,
-							      G4ThreeVector(0, -30*cm, 0*cm),
-							      logic_BF3_detector,
-							      "BF3Detector",
-							      logical_world, // parent volume
-							      false,
-							      0,
-							      true); // check for overlaps
+	new G4PVPlacement(parallel,
+			  G4ThreeVector(0, -30*cm, 0*cm),
+			  logic_BF3_detector,
+			  "BF3Detector",
+			  logical_world, // parent volume
+			  has_copies,
+			  num_copies,
+			  check_overlaps_children); // check for overlaps
+	
 	return physical_world;
 }
 

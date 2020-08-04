@@ -49,12 +49,14 @@ void NeutronPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 	// locations near the back corner of the world (which provides us
 	// with our coordinate system)
 	// since our locations are random some will be outside of the world
-	G4double environment_size_xy_axis = 2*m;
-
-
+	G4double environment_size_hz_axis = 4*m;
+	G4double environment_size_xy_axis = 8*m;
+	
 	G4double x0 = environment_size_xy_axis * (G4UniformRand()-0.5) ;
 	G4double y0 = environment_size_xy_axis * (G4UniformRand()-0.5) ;
-	G4double z0 = environment_size_xy_axis * -1 ;
+	G4double z0 = environment_size_hz_axis * -1 ;
+
+	std::cout << "COORDS: " << x0 << " " << y0 << " " << z0 << '\n';
 
 	particle_gun->SetParticlePosition(G4ThreeVector(x0, y0, z0));
 	
