@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing the program and running simulations &mdash; Neutron detection simulation  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Structure of this project" href="project_structure.html" />
+    <link rel="prev" title="Neutron detection simulation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Neutron detection simulation
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing the program and running simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-cmake-to-build-the-program">Using cmake to build the program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-ccmake-to-build-the-program">Using ccmake to build the program</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Structure of this project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useful_g4_resources.html">Useful Geant4 resources to help you make modifications or build your own programs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Neutron detection simulation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installing the program and running simulations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installing_and_running.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-the-program-and-running-simulations">
+<h1>Installing the program and running simulations<a class="headerlink" href="#installing-the-program-and-running-simulations" title="Permalink to this headline">¶</a></h1>
+<p>Running this program requires that you already have Geant4 installed. Like all Geant4 programs, building this project requires you to make a separate <code class="docutils literal notranslate"><span class="pre">build</span></code> directory to contain the build products and executable. You can choose to use <code class="docutils literal notranslate"><span class="pre">cmake</span></code> or <code class="docutils literal notranslate"><span class="pre">ccmake</span></code> to build the project.</p>
+<div class="section" id="using-cmake-to-build-the-program">
+<h2>Using cmake to build the program<a class="headerlink" href="#using-cmake-to-build-the-program" title="Permalink to this headline">¶</a></h2>
+<p>CMake has a variety of advanced variables that can be set for each build, which you can list using <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-LA</span></code> (this is also helpful for debugging). If you choose not to specify a value for the <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>, CMake will automatically look in the <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code> directory. If you have installed Geant4 under your home directory, you will need to specify where it is installed. A full build can be done using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir neutron_detection_simulation-build
+<span class="nb">cd</span> neutron_detection_simulation-build
+cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/home/myusername/geant4-version-install /home/myusername/neutron_detection_simulation
+make
+</pre></div>
+</div>
+<p>This is assuming both Geant4 and the Neutron detection simulation exist under your home directory.</p>
+</div>
+<div class="section" id="using-ccmake-to-build-the-program">
+<h2>Using ccmake to build the program<a class="headerlink" href="#using-ccmake-to-build-the-program" title="Permalink to this headline">¶</a></h2>
+<p>CCMake provides a GUI for the CMake process, and can make it clearer when CMake variables are set incorrectly. Running a full build using CCMake requires entering the directory you want to build in, running CCMake on the directory where the program is installed, and then generating the build files. The GUI window looks like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>CMAKE_BUILD_TYPE                 Debug
+CMAKE_INSTALL_PREFIX             /home/myusername/geant4-version-install
+Geant4_DIR                       /home/myusername/geant4-version-install/lib/Geant4-10.6.2
+</pre></div>
+</div>
+<p>You can press enter to modify any of the variables, and the GUI will display the options. When finished, press ‘c’ twice to configure and ‘g’ once to generate the build files and the Makefile. A full build can be done using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir neutron_detection_simulation-build
+<span class="nb">cd</span> neutron_detection_simulation-build
+ccmake /home/myusername/neutron_detection_simulation
+make
+</pre></div>
+</div>
+<p>This is assuming you set your CMake variables properly inside of the CCMake GUI, and that this project is cloned in your home directory.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="project_structure.html" class="btn btn-neutral float-right" title="Structure of this project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Neutron detection simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Oisin O&#39;Connell
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
