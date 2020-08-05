@@ -1,0 +1,73 @@
+\hypertarget{GTKInput_8hh}{}\section{include/\+G\+T\+K\+Input.hh File Reference}
+\label{GTKInput_8hh}\index{include/\+G\+T\+K\+Input.\+hh@{include/\+G\+T\+K\+Input.\+hh}}
+
+
+G\+TK input header file, allows user to input the material for the neutrons to propagate through and collects the user input in a struct that is used by the detector construction and the primary generator action to create a customized simulation.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for G\+T\+K\+Input.\+hh\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{GTKInput_8hh__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GTKInput_8hh__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classInputValues}{Input\+Values}
+\item 
+class \hyperlink{classOutputValues}{Output\+Values}
+\item 
+struct \hyperlink{structGTKBoxesContainer}{G\+T\+K\+Boxes\+Container}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_a2331baf03bacdf22d5763e6ce3329e2f}\label{GTKInput_8hh_a2331baf03bacdf22d5763e6ce3329e2f}} 
+enum {\bfseries Detector} 
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_a19f5912b30e5d38df0a3c0bfa9b794f2}\label{GTKInput_8hh_a19f5912b30e5d38df0a3c0bfa9b794f2}} 
+void {\bfseries create\+\_\+data\+\_\+entry\+\_\+window} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_aefb2ae95fdd6ed4de4ff76a886180f24}\label{GTKInput_8hh_aefb2ae95fdd6ed4de4ff76a886180f24}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries detector\+\_\+materials}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_a69055fa214854d483b97260a00cbfa60}\label{GTKInput_8hh_a69055fa214854d483b97260a00cbfa60}} 
+\hyperlink{classInputValues}{Input\+Values} $\ast$ {\bfseries input\+\_\+values}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_af802813aa13c8a2d9a86f12dc49d5c92}\label{GTKInput_8hh_af802813aa13c8a2d9a86f12dc49d5c92}} 
+\hyperlink{classOutputValues}{Output\+Values} $\ast$ {\bfseries output\+\_\+values}
+\item 
+\mbox{\Hypertarget{GTKInput_8hh_a9af02616a624ef7c34dee19b71e0bf32}\label{GTKInput_8hh_a9af02616a624ef7c34dee19b71e0bf32}} 
+struct \hyperlink{structGTKBoxesContainer}{G\+T\+K\+Boxes\+Container} $\ast$ {\bfseries results}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+G\+TK input header file, allows user to input the material for the neutrons to propagate through and collects the user input in a struct that is used by the detector construction and the primary generator action to create a customized simulation. 
+
+\begin{DoxyAuthor}{Author}
+Oisin O\textquotesingle{}Connell 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+7/29/2020 
+\end{DoxyDate}

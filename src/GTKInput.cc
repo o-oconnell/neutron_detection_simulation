@@ -52,7 +52,7 @@ void create_data_entry_window()
 	
 	// add the usage description
 	title_description = gtk_text_view_new();
-	title_description = gtk_label_new ("This program models neutron propagation through various materials and collision with a detector material\nusing Geant4. By default, thermal neutrons are collided with materials that have high nuclear cross-sections\nfor thermal neutrons. Use the first text box to enter a NIST-specified material for the world. Enter the energy\n(eV) of the incident neutrons using the second text box. Enter the number of initial events using the third\ntext box. Press the \"Submit\" button to run the simulation. ");
+	title_description = gtk_label_new ("This program models neutron propagation through various materials and collision with a detector material\nusing Geant4. By default, thermal neutrons are collided with detector materials that have high nuclear\ncross-sections for thermal neutrons (such as Helium-3). Use the first text box to enter a NIST-specified\nmaterial for the world. Enter the energy (eV) of the incident neutrons using the second text box. Enter the\nnumber of initial events using the third text box. Specify the detector material using the three buttons.\nPress the \"Submit\" button to run the simulation. ");
 	gtk_label_set_xalign(GTK_LABEL(title_description), 0.0f);
 	gtk_box_pack_start(GTK_BOX(data_entry_box), title_description, FALSE, FALSE, 0);
 

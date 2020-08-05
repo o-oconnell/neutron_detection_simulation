@@ -1,0 +1,186 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage{fancyvrb}
+\usepackage{listings}
+\hypersetup{pdfpagemode=FullScreen}
+\title[Title]{Introduction to Physics Modeling in Geant4}
+\author{Oisin O'Connell (oisin@lanl.gov), ISR-1\\ Mentor: Dr. Mark Galassi}
+\institute{Los Alamos National Lab (LA-UR-20-25374)}
+\date{August 5, 2020}
+\usecolortheme{orchid}
+\begin{document}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\begin{frame}{Concepts}
+  \begin{block}{}
+    \begin{itemize}
+    \item Run manager
+    \item Run
+    \item Event
+    \item Step
+    \item Track
+    \item User Actions
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Inheritance, virtual functions}
+  \begin{itemize}
+  \item Class derivations
+  \item Self-derived, specify behavior
+  \item Pass pointers- user initializations, actions
+  \item Virtual functions
+  \end{itemize}
+  
+  \begin{block}{Example header file:}
+    \begin{Verbatim}[fontsize=\small]
+class BF3DetectorConstruction :
+  public G4VUserDetectorConstruction {
+   public:
+    BF3DetectorConstruction();
+
+    virtual G4VPhysicalVolume* Construct();
+  };
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Mandatory class derivations}
+  \begin{itemize}
+  \item Pass w/SetUserInitialization
+  \item G4VUserDetectorConstruction
+  \item G4VUserActionInitialization
+  \item G4VUserPhysicsList
+  \end{itemize}
+  
+  \begin{block}{Mandatory user initializations:}
+    \begin{Verbatim}[fontsize=\small]
+runManager->SetUserInitialization(MyDetectorConstruction);
+runManager->SetUserInitialization(MyPhysicsList);
+runManager->SetUserInitialization(MyActionInitialization);
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Creating a world with objects}
+  \begin{itemize}
+  \item G4VUserDetectorConstruction derivation
+  \item "Construct()" virtual function- return root
+  \item Self-defined or NIST manager materials
+  \item Geometry, logical, physical volumes
+  \end{itemize}
+  
+  \begin{block}{Making a world geometry:}
+    \begin{Verbatim}[fontsize=\small]
+G4Box* world = new G4Box("World", hx, hy, hz);
+      
+G4LogicalVolume* logical_world =
+  new G4LogicalVolume(world, // geometry
+  NIST->FindOrBuildMaterial("G4_AIR")... // material
+  
+G4VPhysicalVolume* physical_world =
+  new G4PVPlacement(0,
+                    G4ThreeVector(), // translation
+                    logical_world, // logical volume
+                    "world" //name..snip)
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Physics lists}
+  \begin{itemize}
+  \item Custom: G4VUserPhysicsList, processes, thresholds (cuts)
+  \item Pre-defined: G4 reference lists
+  \item This project: QGSP\textunderscore BERT\textunderscore HP
+  \item Choose per project, naming conventions: \href{http://geant4.in2p3.fr/IMG/pdf_PhysicsLists.pdf}{http://geant4.in2p3.fr/IMG/pdf\textunderscore PhysicsLists.pdf}
+    
+  \end{itemize}
+
+  \begin{block}{Using predefined physics lists:}
+    \begin{Verbatim}[fontsize=\small]
+G4VModularPhysicsList* physics_list =
+		new QGSP_BERT_HP;
+
+runManager->SetUserInitialization(physics_list);
+
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Adding user actions}
+  \begin{itemize}
+  \item G4VUserActionInitialization derivation
+  \item Add user actions in derived class virtual functions
+  \item Build(), BuildForMaster()
+  \item Primary particle generation, run, track, step, etc
+  \end{itemize}
+
+  \begin{block}{Adding user actions:}
+    \begin{Verbatim}[fontsize=\small]
+void NeutronActionInitialization::Build() const
+{
+    NeutronPrimaryGeneratorAction* npga =
+        new NeutronPrimaryGeneratorAction;
+    SetUserAction(npga);
+    SetUserAction(new NeutronRunAction(npga));
+}
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Optional user action definitions and concepts}
+  \begin{itemize}
+  \item G4V...Action
+  \item UserPrimaryGenerator
+  \item UserRun, UserEvent
+  \item UserStacking, UserTracking
+  \item UserStepping
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Macros and our TUI}
+  \begin{itemize}
+  \item G4UIManager- commands during execution
+  \item Run simulations w/.mac, program, shell
+  \item BeamOn
+  \end{itemize}
+
+  \begin{block}{Running a simulation from the program:}
+    \begin{Verbatim}[fontsize=\small]
+G4UImanager* UI_manager = G4UImanager::GetUIpointer();
+UI_manager->ApplyCommand("/run/beamOn 1000")
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Common problems and solutions}
+  \begin{itemize}
+  \item Graphics options- set proper CMake variables
+  \item Installing datasets- if auto-installing, consider manual wget instead: \$CMAKE\textunderscore INSTALL\textunderscore PREFIX/share/myG4Version/data
+  \item Post-installation environment variables: \$CMAKE\textunderscore INSTALL\textunderscore PREFIX/bin
+  \end{itemize}
+
+  \begin{block}{Auto-installing datasets and using graphics drivers:}
+    \begin{Verbatim}[fontsize=\small]
+GEANT4_INSTALL_DATA             *OFF                                                               
+..snip
+GEANT4_USE_OPENGL_X11           *OFF
+GEANT4_USE_[DRIVER]             *OFF
+    \end{Verbatim}
+  \end{block}
+\end{frame}
+
+\title[Title]{}
+\author{Oisin O'Connell (oisin@lanl.gov), ISR-1\\ Mentor: Dr. Mark Galassi}
+\institute{}
+\date{}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\end{document}
+

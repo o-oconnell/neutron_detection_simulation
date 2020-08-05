@@ -1,0 +1,4 @@
+<map id="include/NeutronRunAction.hh" name="include/NeutronRunAction.hh">
+<area shape="rect" id="node2" href="$NeutronActionInitialization_8cc.html" title="neutron action initialization header file, where we initialize user actions such as defining the beha..." alt="" coords="5,80,220,107"/>
+<area shape="rect" id="node3" href="$NeutronRunAction_8cc.html" title="Run user action file, allows us to define what should occur before and after a run. Currently being used to open and close the histogram if the user turns it on. " alt="" coords="244,80,413,107"/>
+</map>

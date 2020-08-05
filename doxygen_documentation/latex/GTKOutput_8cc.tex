@@ -1,0 +1,58 @@
+\hypertarget{GTKOutput_8cc}{}\section{src/\+G\+T\+K\+Output.cc File Reference}
+\label{GTKOutput_8cc}\index{src/\+G\+T\+K\+Output.\+cc@{src/\+G\+T\+K\+Output.\+cc}}
+
+
+G\+TK output file, collects the results from the \hyperlink{classOutputValues}{Output\+Values} struct that is forward declared in the G\+T\+K\+Input header file and displays them as the output.  
+
+
+{\ttfamily \#include \char`\"{}G\+T\+K\+Input.\+hh\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}G\+T\+K\+Output.\+hh\char`\"{}}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+Include dependency graph for G\+T\+K\+Output.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GTKOutput_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{GTKOutput_8cc_a6391991aa8e57c5bdfae21fb4fd8f707}\label{GTKOutput_8cc_a6391991aa8e57c5bdfae21fb4fd8f707}} 
+void \hyperlink{GTKOutput_8cc_a6391991aa8e57c5bdfae21fb4fd8f707}{create\+\_\+output\+\_\+window} ()
+\begin{DoxyCompactList}\small\item\em creates the output window that contains the energy deposition and other statistics after a simulation has run. \end{DoxyCompactList}\item 
+void \hyperlink{GTKOutput_8cc_acc11cbf62638ba1237401d4346d86a1c}{close\+\_\+clicked} (Gtk\+Widget $\ast$button, struct \hyperlink{structWinContainer}{Win\+Container} $\ast$wc)
+\begin{DoxyCompactList}\small\item\em callback that closes the window when the close button is clicked \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+G\+TK output file, collects the results from the \hyperlink{classOutputValues}{Output\+Values} struct that is forward declared in the G\+T\+K\+Input header file and displays them as the output. 
+
+\begin{DoxyAuthor}{Author}
+Oisin O\textquotesingle{}Connell 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+7/29/2020 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{GTKOutput_8cc_acc11cbf62638ba1237401d4346d86a1c}\label{GTKOutput_8cc_acc11cbf62638ba1237401d4346d86a1c}} 
+\index{G\+T\+K\+Output.\+cc@{G\+T\+K\+Output.\+cc}!close\+\_\+clicked@{close\+\_\+clicked}}
+\index{close\+\_\+clicked@{close\+\_\+clicked}!G\+T\+K\+Output.\+cc@{G\+T\+K\+Output.\+cc}}
+\subsubsection{\texorpdfstring{close\+\_\+clicked()}{close\_clicked()}}
+{\footnotesize\ttfamily void close\+\_\+clicked (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{button,  }\item[{struct \hyperlink{structWinContainer}{Win\+Container} $\ast$}]{wc }\end{DoxyParamCaption})}
+
+
+
+callback that closes the window when the close button is clicked 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & the button widget \\
+\hline
+{\em wc} & a struct containing the window that displays the results \\
+\hline
+\end{DoxyParams}

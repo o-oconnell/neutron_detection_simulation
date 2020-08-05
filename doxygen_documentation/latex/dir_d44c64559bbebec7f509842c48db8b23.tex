@@ -1,0 +1,31 @@
+\hypertarget{dir_d44c64559bbebec7f509842c48db8b23}{}\section{include Directory Reference}
+\label{dir_d44c64559bbebec7f509842c48db8b23}\index{include Directory Reference@{include Directory Reference}}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{3HeDetectorConstruction_8hh}{3\+He\+Detector\+Construction.\+hh}
+\begin{DoxyCompactList}\small\item\em header for the helium-\/3 detector construction \end{DoxyCompactList}\item 
+file \hyperlink{3HeWorldConstruction_8hh}{3\+He\+World\+Construction.\+hh}
+\begin{DoxyCompactList}\small\item\em helium-\/3 world envelope construction file. \end{DoxyCompactList}\item 
+file \hyperlink{4HeDetectorConstruction_8hh}{4\+He\+Detector\+Construction.\+hh}
+\begin{DoxyCompactList}\small\item\em helium-\/4 container in an air world envelope detector construction header file \end{DoxyCompactList}\item 
+file \hyperlink{BF3DetectorConstruction_8hh}{B\+F3\+Detector\+Construction.\+hh}
+\begin{DoxyCompactList}\small\item\em boron trifluoride container in a modifiable world envelope detector construction header file \end{DoxyCompactList}\item 
+file \hyperlink{CounterSD_8hh}{Counter\+S\+D.\+hh}
+\begin{DoxyCompactList}\small\item\em sensitive detector definition header file. \end{DoxyCompactList}\item 
+file \hyperlink{global__materials_8hh}{global\+\_\+materials.\+hh}
+\begin{DoxyCompactList}\small\item\em global materials file, if the get\+\_\+input() function is used to get the propagation material in main, this file contains the results which we can use to select the material. \end{DoxyCompactList}\item 
+file \hyperlink{GTKInput_8hh}{G\+T\+K\+Input.\+hh}
+\begin{DoxyCompactList}\small\item\em G\+TK input header file, allows user to input the material for the neutrons to propagate through and collects the user input in a struct that is used by the detector construction and the primary generator action to create a customized simulation. \end{DoxyCompactList}\item 
+file \hyperlink{GTKOutput_8hh}{G\+T\+K\+Output.\+hh}
+\begin{DoxyCompactList}\small\item\em G\+TK output header file, collects the results from the \hyperlink{classOutputValues}{Output\+Values} struct that is forward declared in the G\+T\+K\+Input header file and displays them as the output. \end{DoxyCompactList}\item 
+file \hyperlink{HistogramsAnalysisManager_8hh}{Histograms\+Analysis\+Manager.\+hh}
+\begin{DoxyCompactList}\small\item\em Analysis manager header file, optionally allows us to place commands within our code that add to a histogram based on an event, a step, or something else. \end{DoxyCompactList}\item 
+file \hyperlink{MultipleWorldConstruction_8hh}{Multiple\+World\+Construction.\+hh}
+\begin{DoxyCompactList}\small\item\em multiple world construction header file, when used allows us to choose the world based on the input that we receive from the get\+Input function in main, but by default we use a G\+TK window instead. \end{DoxyCompactList}\item 
+file \hyperlink{NeutronActionInitialization_8hh}{Neutron\+Action\+Initialization.\+hh}
+\begin{DoxyCompactList}\small\item\em neutron action initialization header file, where we initialize user actions such as defining the behavior for events and runs. Currently we are only defining user actions for the primary generator action and the run action. \end{DoxyCompactList}\item 
+file \hyperlink{NeutronPrimaryGeneratorAction_8hh}{Neutron\+Primary\+Generator\+Action.\+hh}
+\begin{DoxyCompactList}\small\item\em primary generator action, where we create our thermal neutrons. We pass an instance of this derived class to the run manager in our derived class, \hyperlink{classNeutronActionInitialization}{Neutron\+Action\+Initialization}. \end{DoxyCompactList}\item 
+file \hyperlink{NeutronRunAction_8hh}{Neutron\+Run\+Action.\+hh}
+\begin{DoxyCompactList}\small\item\em Run user action header file, allows us to define what should occur before and after a run. Currently being used to open and close the histogram if the user turns it on. \end{DoxyCompactList}\end{DoxyCompactItemize}
