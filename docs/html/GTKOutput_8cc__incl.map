@@ -1,4 +1,0 @@
-<map id="src/GTKOutput.cc" name="src/GTKOutput.cc">
-<area shape="rect" id="node2" href="$GTKInput_8hh.html" title="GTK input header file, allows user to input the material for the neutrons to propagate through and co..." alt="" coords="136,80,232,107"/>
-<area shape="rect" id="node6" href="$GTKOutput_8hh.html" title="GTK output header file, collects the results from the OutputValues struct that is forward declared in..." alt="" coords="5,80,112,107"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="src/NeutronActionInitialization.cc" name="src/NeutronActionInitialization.cc">
-<area shape="rect" id="node2" href="$NeutronActionInitialization_8hh.html" title="neutron action initialization header file, where we initialize user actions such as defining the beha..." alt="" coords="61,80,253,107"/>
-<area shape="rect" id="node4" href="$NeutronPrimaryGeneratorAction_8hh.html" title="primary generator action, where we create our thermal neutrons. We pass an instance of this derived c..." alt="" coords="229,155,454,181"/>
-<area shape="rect" id="node7" href="$NeutronRunAction_8hh.html" title="Run user action header file, allows us to define what should occur before and after a run..." alt="" coords="428,80,575,107"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="include/CounterSD.hh" name="include/CounterSD.hh">
-<area shape="rect" id="node2" href="$3HeDetectorConstruction_8cc.html" title="helium&#45;3 detector construction file. Air envelope with 3He container. " alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node3" href="$BF3DetectorConstruction_8cc.html" title="boron trifluoride container in a modifiable world envelope detector construction file ..." alt="" coords="240,80,451,107"/>
-<area shape="rect" id="node4" href="$CounterSD_8cc.html" title="sensitive detector definition file. We attach a sensitive detector to a logical volume in order to ob..." alt="" coords="475,80,602,107"/>
-</map>
