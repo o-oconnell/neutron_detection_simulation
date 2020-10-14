@@ -53,8 +53,6 @@ set(NEUTRON_SCRIPTS
     run1_thermal_neutrons.mac
     )
 
-
-
 foreach(_script ${NEUTRON_SCRIPTS})
    configure_file(
      ${PROJECT_SOURCE_DIR}/${_script}
